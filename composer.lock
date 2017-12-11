@@ -1,0 +1,124 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "9ef313398e3e1709797d4a93d5baaa39",
+    "content-hash": "21e4e655c2e1d223c905dc5db9d4a091",
+    "packages": [
+        {
+            "name": "jmarceli/integration-cmb2-qtranslate",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jmarceli/integration-cmb2-qtranslate.git",
+                "reference": "0.1.1"
+            },
+            "type": "library"
+        },
+        {
+            "name": "phpword/phpword",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/kkula/phpword.git",
+                "reference": "4ba9cb7f65618ec6990ecefa5edc6a992db04429"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/kkula/phpword/get/4ba9cb7f65618ec6990ecefa5edc6a992db04429.zip",
+                "reference": "4ba9cb7f65618ec6990ecefa5edc6a992db04429",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPWord": "Library"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GNU"
+            ],
+            "description": "PHPWord is a library written in PHP that create word documents.",
+            "homepage": "http://phpword.codeplex.com",
+            "keywords": [
+                "doc",
+                "docx",
+                "word"
+            ],
+            "time": "2012-12-25 21:55:12"
+        },
+        {
+            "name": "webdevstudios/cmb2",
+            "version": "v2.2.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CMB2/CMB2.git",
+                "reference": "5c9bdb6e99e17e4dad71ebbc68dab5def3c64e12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/5c9bdb6e99e17e4dad71ebbc68dab5def3c64e12",
+                "reference": "5c9bdb6e99e17e4dad71ebbc68dab5def3c64e12",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">5.2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "WebDevStudios",
+                    "email": "contact@webdevstudios.com",
+                    "homepage": "https://github.com/WebDevStudios",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Justin Sternberg",
+                    "email": "justin@dsgnwrks.pro",
+                    "homepage": "https://dsgnwrks.pro",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Zao",
+                    "email": "office@zao.com",
+                    "homepage": "http://zao.is",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CMB2 is a metabox, custom fields, and forms library for WordPress that will blow your mind.",
+            "homepage": "https://github.com/CMB2/CMB2",
+            "keywords": [
+                "metabox",
+                "plugin",
+                "wordpress"
+            ],
+            "time": "2017-08-22 18:14:34"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "phpword/phpword": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: export2word 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-17 22:33+0600\n"
+"POT-Creation-Date: 2017-10-18 07:58+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/inc/fun/autoload/class-e2w_admin_options.php:65
+#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:84
 msgid "Export2Word"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_admin_options.php:174
+#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:198
+#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:237
+msgid "Test Text"
+msgstr ""
+
+#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:199
+#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:207
+#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:238
+#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:246
+msgid "field description (optional)"
+msgstr ""
+
+#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:206
+#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:245
+msgid "Test Color Picker"
+msgstr ""
+
+#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:338
 msgid "Settings updated."
 msgstr ""

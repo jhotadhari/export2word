@@ -7,7 +7,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-class E2wexport2word {
+class E2w_export2word {
 	
 	const VERSION = 'taskRunner_setVersion';
 	const DB_VERSION = 0;			// int	increase the number if the database needs an update
@@ -188,7 +188,7 @@ class E2wexport2word {
 }
 
 global $e2w_export2word;
-$e2w_export2word = new E2wexport2word();
+$e2w_export2word = new E2w_export2word();
 
 
 
