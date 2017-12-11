@@ -55,16 +55,16 @@
         },
         {
             "name": "webdevstudios/cmb2",
-            "version": "v2.2.5.3",
+            "version": "v2.2.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CMB2/CMB2.git",
-                "reference": "5c9bdb6e99e17e4dad71ebbc68dab5def3c64e12"
+                "reference": "b1a7e8fb9f0634337b390a098f0a1f70f0f64085"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/5c9bdb6e99e17e4dad71ebbc68dab5def3c64e12",
-                "reference": "5c9bdb6e99e17e4dad71ebbc68dab5def3c64e12",
+                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/b1a7e8fb9f0634337b390a098f0a1f70f0f64085",
+                "reference": "b1a7e8fb9f0634337b390a098f0a1f70f0f64085",
                 "shasum": ""
             },
             "require": {
@@ -108,7 +108,7 @@
                 "plugin",
                 "wordpress"
             ],
-            "time": "2017-08-22 18:14:34"
+            "time": "2017-11-27 20:49:15"
         }
     ],
     "packages-dev": [],
