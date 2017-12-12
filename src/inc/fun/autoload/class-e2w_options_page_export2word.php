@@ -496,7 +496,7 @@ class E2w_options_page_export2word {
  * @since  taskRunner_setVersion
  * @return E2w_options_page_export2word object
  */
-function e2w_export2word_options() {
+function e2w_options_page_export2word() {
 	return E2w_options_page_export2word::get_instance();
 }
 
@@ -510,11 +510,11 @@ function e2w_export2word_options() {
 function e2w_export2word_get_option( $key = '', $default = null ) {
 	if ( function_exists( 'cmb2_get_option' ) ) {
 		// Use cmb2_get_option as it passes through some key filters.
-		return cmb2_get_option( e2w_export2word_options()->key, $key, $default );
+		return cmb2_get_option( e2w_options_page_export2word()->key, $key, $default );
 	}
 
 	// Fallback to get_option if CMB2 is not loaded yet.
-	$opts = get_option( e2w_export2word_options()->key, $key, $default );
+	$opts = get_option( e2w_options_page_export2word()->key, $key, $default );
 
 	$val = $default;
 
@@ -530,7 +530,7 @@ function e2w_export2word_get_option( $key = '', $default = null ) {
 }
 
 // Get it started
-e2w_export2word_options();
+e2w_options_page_export2word();
 
 
 ?>
