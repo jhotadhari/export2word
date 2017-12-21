@@ -1,10 +1,14 @@
 <?php
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 Class E2w_admin_notice {
 
 	protected $admin_notice = '';
 	protected $to_log = false;
-
 
 	function __construct( $notice, $is_error = false, $to_log = false ) {
 		$this->admin_notice = $this->set_admin_notice( $notice, $is_error );

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: export2word 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-12 12:19+0530\n"
+"POT-Creation-Date: 2017-12-21 07:43+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,81 +17,371 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/inc/fun/autoload/class-e2w_e2w_template_edit.php:38
-msgid "Save and Export"
+#: src/inc/fun/autoload/class_e2w_template_manager.php:12
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:27
+msgid "Singular"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_e2w_template_edit.php:50
-msgid "Save only"
+#: src/inc/fun/autoload/class_e2w_template_manager.php:16
+msgid "Singular Post"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_e2w_template_edit.php:51
-msgid "Save & Export to docx"
+#: src/inc/fun/autoload/class_e2w_template_manager.php:21
+msgid "Singular Term"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:99
-msgid "Export2Word"
+#: src/inc/fun/autoload/class_e2w_template_manager.php:26
+msgid "Singular User"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:210
-msgid "Create a new Template"
+#: src/inc/fun/autoload/class_e2w_template_manager.php:32
+msgid "Archive"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:279
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:318
-msgid "Test Text"
+#: src/inc/fun/autoload/class_e2w_template_manager.php:36
+msgid "Post"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:280
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:288
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:319
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:327
-msgid "field description (optional)"
+#: src/inc/fun/autoload/class_e2w_template_manager.php:40
+msgid "Term"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:287
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:326
-msgid "Test Color Picker"
+#: src/inc/fun/autoload/class_e2w_template_manager.php:44
+msgid "User"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:373
-msgid "Content"
+#: src/inc/fun/autoload/class_e2w_template_manager.php:50
+msgid "Table of contents"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_options_page_export2word.php:473
-msgid "Settings updated."
+#: src/inc/fun/autoload/class_e2w_template_manager.php:55
+msgid "Custom"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_templates_list.php:16
+#: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_tree_properties.php:66
+msgid "Selected Section"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:16
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:15
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:42
+msgid "Document"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:17
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:14
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:16
+msgid "Documents"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:24
+msgid "No documents avaliable."
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:34
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:34
+msgid "All"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:49
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:49
+msgid "Trash"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:111
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:111
+msgid "Title"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:112
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:112
+msgid "Egal"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:16
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:15
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:42
 msgid "Template"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_templates_list.php:17
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:17
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:14
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:16
 msgid "Templates"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_templates_list.php:24
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:24
 msgid "No templates avaliable."
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_templates_list.php:34
-msgid "All"
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:105
+msgid "Export2Word"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_templates_list.php:49
-msgid "Trash"
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:217
+msgid "Create a new Template"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_templates_list.php:111
-msgid "Title"
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:253
+msgid "Create a new Document"
 msgstr ""
 
-#: src/inc/fun/autoload/class-e2w_templates_list.php:112
-msgid "Egal"
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:320
+msgid "Test Text"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:321
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:329
+msgid "field description (optional)"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:328
+msgid "Test Color Picker"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:418
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:102
+msgid "Content"
+msgstr ""
+
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:520
+msgid "Settings updated."
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:41
+msgid "Save and Export"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:53
+msgid "Save only"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:54
+msgid "Save and Export to docx"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:79
+msgid "Document structure"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:89
+msgid "Right click on a Section to edit."
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:41
+msgid "Save Template"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:70
+msgid "Template Settings"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:127
+msgid "Template shortcodes"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:9
+msgid "Section Type"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:12
+msgid "bla bla ???"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:18
+msgid "Query"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:20
+msgid "Query the database for post, term or users."
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:21
+msgid "The child sections represent the loop and recieve the queried object"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:22
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:30
+msgid ""
+"Will recieve the queried object, if used as a child of a \"Query Section\"."
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:29
+msgid "For a single post, term or user (or template withut queried object)."
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:35
+msgid "Table of content"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:36
+msgid "Insert a table of content."
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:44
+msgid "Query Type"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:51
+msgid "Post Query"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:52
+msgid "Query the database for posts."
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:55
+msgid "Term Query"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:56
+msgid "Query the database for terms."
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:59
+msgid "User Query"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:60
+msgid "Query the database for users."
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:87
+msgid "Query Arguments"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:92
+msgid "The Query arguments as json formatted array."
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:111
+msgid "Singular Type"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:118
+msgid "Single Post"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:119
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:123
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:127
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:131
+msgid "bla"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:122
+msgid "Single Term"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:126
+msgid "Single User"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/e2w_document_edit_add_tree_properties_fields.php:130
+msgid "Single Custom"
+msgstr ""
+
+#: src/inc/fun/autoload/test/e2w_test_metabox.php:11
+msgid "Testbox"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:17
+msgid "Document Attributes"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:18
+msgid "Parent Document:"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:19
+msgid "All Documents"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:20
+msgid "Export2Word: Add New Document"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:21
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:21
+msgid "Add New"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:22
+msgid "New Document"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:23
+msgid "Export2Word: Edit Document"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:24
+msgid "Update Document"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:25
+msgid "View Document"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:26
+msgid "View Documents"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:27
+msgid "Search Document"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:28
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:28
+msgid "Not found"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:29
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:29
+msgid "Not found in Trash"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:30
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:30
+msgid "Featured Image"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:31
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:31
+msgid "Set featured image"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:32
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:32
+msgid "Remove featured image"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:33
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:33
+msgid "Use as featured image"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:34
+msgid "Insert into Document"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:35
+msgid "Uploaded to this Document"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:36
+msgid "Documents list"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:37
+msgid "Documents list navigation"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:38
+msgid "Filter Documents list"
+msgstr ""
+
+#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_document.php:43
+msgid "Document description"
 msgstr ""
 
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:17
@@ -107,11 +397,7 @@ msgid "All Templates"
 msgstr ""
 
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:20
-msgid "Add New Template"
-msgstr ""
-
-#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:21
-msgid "Add New"
+msgid "Export2Word: Add New Template"
 msgstr ""
 
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:22
@@ -119,7 +405,7 @@ msgid "New Template"
 msgstr ""
 
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:23
-msgid "Edit Template"
+msgid "Export2Word: Edit Template"
 msgstr ""
 
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:24
@@ -136,30 +422,6 @@ msgstr ""
 
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:27
 msgid "Search Template"
-msgstr ""
-
-#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:28
-msgid "Not found"
-msgstr ""
-
-#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:29
-msgid "Not found in Trash"
-msgstr ""
-
-#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:30
-msgid "Featured Image"
-msgstr ""
-
-#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:31
-msgid "Set featured image"
-msgstr ""
-
-#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:32
-msgid "Remove featured image"
-msgstr ""
-
-#: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:33
-msgid "Use as featured image"
 msgstr ""
 
 #: src/inc/post_types_taxs/autoload/e2w_add_post_type_e2w_template.php:34

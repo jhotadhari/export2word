@@ -2,9 +2,11 @@
   "name": "jhotadhari/export2word",
   "description": "???",
   "require": {
-    "phpword/phpword": "dev-master",
+    "phpoffice/phpword": "v0.13.*",
     "webdevstudios/cmb2": "*",
-    "jmarceli/integration-cmb2-qtranslate": "0.1.1"
+    "jmarceli/integration-cmb2-qtranslate": "0.1.1",
+    "vakata/jstree":"*",
+    "corinis/jsForm":"*"
   },
   "extra": {
     "installer-paths": {
@@ -25,6 +27,30 @@
           "reference": "0.1.1"
         }
       }
-    }
+    },
+      {
+         "type":"package",
+         "package":{
+            "name":"vakata/jstree",
+            "version":"0.0.0",
+            "source":{
+               "url":"https://github.com/vakata/jstree.git",
+               "type":"git",
+               "reference":"e7961162583f4a7644dc56bc6d9c61fcc087f544"
+            }
+         }
+      },
+  {
+	 "type":"package",
+	 "package":{
+		"name":"corinis/jsForm",
+		"version":"0.0.0",
+		"source":{
+		   "url":"https://github.com/corinis/jsForm.git",
+		   "type":"git",
+		   "reference":"986243521747ebd9335cbf88b640bc20d298b459"
+		}
+	 }
+  }
   ]
 }

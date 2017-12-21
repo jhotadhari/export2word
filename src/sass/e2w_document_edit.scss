@@ -1,0 +1,48 @@
+
+@import "mixins/mixins-master";
+
+
+@mixin columns( $from, $to ){
+  $n: $to - $from + 1;
+  &:nth-child(n+#{$from}):nth-child(-n+#{$to}) {
+    @include column( $n );
+  }
+}
+
+
+@mixin column( $n ){
+  float: left;
+  width: (100%/$n);
+  display: inline;
+  
+  .cmb-th, .cmb-td {
+    display: inline;
+    width: 100%;
+    float: none;
+    margin: 0;
+    padding: 0;
+    
+    & > * {
+      max-width: 90%; 
+    }
+  
+  }
+}
+
+
+.cmb2-metabox.cmb-field-list {
+
+  .cmb-row {
+
+    // padding: 0em 0em 1em 0em !important;
+    margin: 0 !important;
+    border: none !important;
+    
+    &.cmb-repeatable-grouping .inside > .cmb-row {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+
+    }
+  }
+
+}

@@ -1,27 +1,25 @@
 <?php
 
-
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
-
-class E2w_Templates_List extends WP_List_Table {
+class E2w_List_Table_Documents extends WP_List_Table {
 	
 	protected static $total_items = 10;
 
 	public function __construct() {
 
 		parent::__construct( array(
-			'singular' => __( 'Template', 'export2word' ),
-			'plural'   => __( 'Templates', 'export2word' ),
+			'singular' => __( 'Document', 'export2word' ),
+			'plural'   => __( 'Documents', 'export2word' ),
 			'ajax'     => false,
 		) );
 
 	}
 	
 	public function no_items() {
-	  _e( 'No templates avaliable.', 'export2word' );
+	  _e( 'No documents avaliable.', 'export2word' );
 	}
 	
 	protected function get_views(){
@@ -33,16 +31,6 @@ class E2w_Templates_List extends WP_List_Table {
 		$class = ($current == 'all' ? ' class="current"' :'');
 		$views['all'] = "<a href='{$all_url }' {$class} >" . __('All', 'export2word') . '</a>';
 		
-		// // publish
-		// $publish_url = add_query_arg('viewvar','publish');
-		// $class = ($current == 'publish' ? ' class="current"' :'');
-		// $views['publish'] = "<a href='{$publish_url}' {$class} >" . __('Published', 'export2word') . '</a>';
-				
-		// // draft
-		// $draft_url = add_query_arg('viewvar','draft');
-		// $class = ($current == 'draft' ? ' class="current"' :'');
-		// $views['draft'] = "<a href='{$draft_url}' {$class} >" . __('Draft', 'export2word') . '</a>';		
-		
 		// trash
 		$trash_url = add_query_arg('viewvar','trash');
 		$class = ($current == 'trash' ? ' class="current"' :'');
@@ -51,44 +39,40 @@ class E2w_Templates_List extends WP_List_Table {
 		return $views;
 	}
 	
-	
 	function column_title( $item ) {
-		$template_id = $item['ID'];
+		$document_id = $item['ID'];
 		$title = $item['title'];                                                                                            
 		
-		$e2w_nonce_template = wp_create_nonce( 'e2w_nonce_template' );
+		$e2w_nonce_document = wp_create_nonce( 'e2w_nonce_document' );
 		
 		$view = ( !empty($_REQUEST['viewvar']) ? $_REQUEST['viewvar'] : 'all');
 		
 		$actions = array(
-			'edit' 		=> sprintf( '<a href="%s">Edit</a>', get_edit_post_link( $template_id ) ),
+			'edit' 		=> sprintf( '<a href="%s">Edit</a>', get_edit_post_link( $document_id ) ),
 		);
-		
 		
 		if ( $view == 'trash' ) {
 			$actions['delete'] = sprintf(
-				'<a href="?page=%s&action=%s&template=%s&_wpnonce=%s&viewvar=%s">Delete</a>',
+				'<a href="?page=%s&action=%s&document=%s&_wpnonce=%s&viewvar=%s">Delete</a>',
 				esc_attr( $_REQUEST['page'] ),
 				'delete', 
 				absint( $item['ID'] ), 
-				$e2w_nonce_template,
+				$e2w_nonce_document,
 				$view
 			);		
-
 		} else {
 			$actions['trash'] = sprintf(
-				'<a href="?page=%s&action=%s&template=%s&_wpnonce=%s&viewvar=%s">Trash</a>',
+				'<a href="?page=%s&action=%s&document=%s&_wpnonce=%s&viewvar=%s">Trash</a>',
 				esc_attr( $_REQUEST['page'] ),
 				'trash', 
 				absint( $item['ID'] ), 
-				$e2w_nonce_template,
+				$e2w_nonce_document,
 				$view
 			);
 		}
 		
 		return $title . $this->row_actions( $actions );
 	}
-	
 		
 	public function column_default( $item, $column_name ) {
 		switch ( $column_name ) {
@@ -117,7 +101,6 @@ class E2w_Templates_List extends WP_List_Table {
 	
 	public function get_sortable_columns() {
 		$sortable_columns = array(
-			// 'ID' => array( 'ID', false ),
 			'title' => array( 'title', true ),
 		);
 		
@@ -131,13 +114,13 @@ class E2w_Templates_List extends WP_List_Table {
 		return $actions;
 	}
 	
-	protected function get_templates( $per_page = null, $current_page = null, $s = null ){
+	protected function get_documents( $per_page = null, $current_page = null, $s = null ){
 		
 		$orderby = !empty( $_REQUEST['orderby'] ) ? $_REQUEST['orderby'] : 'ID';
 		$order = !empty( $_REQUEST['order'] ) ? $_REQUEST['order'] : 'DESC';
 	
 		$args = array(
-			'post_type'    => 'e2w_template',
+			'post_type'    => 'e2w_document',
 			'orderby'      => $orderby,
 			'order'        => $order,
 		);
@@ -151,31 +134,23 @@ class E2w_Templates_List extends WP_List_Table {
 			$args['offset'] = ( $current_page - 1 ) * $per_page;
 		}
 	
-		
 		if ( !empty( $_REQUEST['viewvar'] ) ){
 			switch ( $_REQUEST['viewvar'] ){
-				// case 'publish':
-				// 	$args['post_status'] = 'publish';
-				// 	break;
-				// case 'draft':
-				// 	$args['post_status'] = 'draft';
-				// 	break;
 				case 'trash':
 					$args['post_status'] = 'trash';
 					break;
 			}
 		}
 		
-		
 		// The Query
-		$templates_query = new WP_Query( $args );
-		$templates = array();
+		$documents_query = new WP_Query( $args );
+		$documents = array();
 		
 		// The Loop
-		while ( $templates_query->have_posts() ) {
-			$templates_query->the_post();
+		while ( $documents_query->have_posts() ) {
+			$documents_query->the_post();
 			
-			$templates[get_the_id()] = array(
+			$documents[get_the_id()] = array(
 				'ID' => get_the_id(),
 				'title' => get_the_title(),
 			);
@@ -184,11 +159,9 @@ class E2w_Templates_List extends WP_List_Table {
 		// Restore original Post Data 
 		wp_reset_postdata();
 		
-		return $templates;
+		return $documents;
 		
 	}
-	
-	
 	
 	public function prepare_items() {
 	
@@ -196,57 +169,37 @@ class E2w_Templates_List extends WP_List_Table {
 		
 		$this->process_bulk_action();
 		
-		$per_page     = $this->get_items_per_page( 'templates_per_page', 5 );
+		$per_page     = $this->get_items_per_page( 'documents_per_page', 5 );
 		$current_page = $this->get_pagenum();
 		$s = isset( $_REQUEST['s'] ) ? $_REQUEST['s'] : null;
 		
-		$templates = $this->get_templates( $per_page, $current_page, $s );	
+		$documents = $this->get_documents( $per_page, $current_page, $s );	
 		
-		$templates_arr= array();
-		if ( is_array($templates) ){
-			foreach ( $templates as $template ){
-				$template_id = $template['ID'];
+		$documents_arr= array();
+		if ( is_array($documents) ){
+			foreach ( $documents as $document ){
+				$document_id = $document['ID'];
 				
-				$templates_arr[$template_id]['ID'] = $template_id;
-				$templates_arr[$template_id]['title'] = $template['title'];
-				
-				
-				// if ( isset ( $templates_arr[$template_id] ) ) {
-					// // status
-					// $e2w_status = get_user_meta( $template_id, 'e2w_status', true );
-					// $e2w_status = end( $e2w_status );
-					// if ( is_array($e2w_status) && array_key_exists( 'status', $e2w_status ) ){
-						// $templates_arr[$template_id]['status'] = e2w_options_cb( 'e2w_status_status' )[$e2w_status['status']];
-						// $templates_arr[$template_id]['status_timestamp'] = date( 'Y/m/d H:i', $e2w_status['timestamp'] );
-					// }
-					// // notiz
-					// $e2w_notizen = get_user_meta( $template_id, 'e2w_notizen', true );
-					// $e2w_notizen = end( $e2w_notizen );
-					// if ( is_array($e2w_notizen) && array_key_exists( 'note', $e2w_notizen ) ){
-						// $templates_arr[$template_id]['note'] = $e2w_notizen['note'];
-						// $templates_arr[$template_id]['note_timestamp'] = date( 'Y/m/d H:i', $e2w_notizen['timestamp'] );
-					// }				
-				// }
+				$documents_arr[$document_id]['ID'] = $document_id;
+				$documents_arr[$document_id]['title'] = $document['title'];
 				
 			}
 		}
 		
-		$total_items = count($templates_arr);
+		$total_items = count($documents_arr);
 		
 		$this->set_pagination_args( array(
 			'total_items' => $total_items,
 			'per_page'    => $per_page
 		) );
 		
-		$this->items = $templates_arr;
+		$this->items = $documents_arr;
 	}
 	
 	public function process_bulk_action() {
 		
 		$view = ( !empty($_REQUEST['viewvar']) ? $_REQUEST['viewvar'] : 'all');
-		
 		$action = $this->current_action();
-		
 		
 		if ( isset( $action ) && !empty( $action ) ) {
 			if ( strpos( $action, 'bulk-' ) == 0 && is_numeric( strpos( $action, 'bulk-' ) ) ){
@@ -254,37 +207,27 @@ class E2w_Templates_List extends WP_List_Table {
 			} else {
 				$this->process_bulk_action_single( $this->current_action() );
 			}
-			
-			// $remove = array( 'action', 'template', '_wpnonce');
-			// if ( $view === 'all' ){
-			// 	$remove[] = 'viewvar';
-			// 	$url = remove_query_arg( $remove );
-			// } else {
-			// 	$url = add_query_arg( 'viewvar', $view, remove_query_arg( $remove ) );
-			// }
-			// wp_redirect( $url );
-			// exit;
-			
 		}
+		
 	}
 	
 	protected function process_bulk_action_single( $action ) {
 	
 		$nonce = esc_attr( $_REQUEST['_wpnonce'] );
 		
-		if ( ! wp_verify_nonce( $nonce, 'e2w_nonce_template' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'e2w_nonce_document' ) ) {
 			wp_die( 'Nope! Security check failed!' );
 		}
 		else {
 		
-			$template_id = absint( $_GET['template'] );
+			$document_id = absint( $_GET['document'] );
 		
 			switch( $action ){
 				case 'trash':
-						wp_trash_post( $template_id );
+						wp_trash_post( $document_id );
 					break;
 				case 'delete':
-						wp_delete_post( $template_id );
+						wp_delete_post( $document_id );
 					break;
 				default:
 					// silence ...
@@ -313,20 +256,20 @@ class E2w_Templates_List extends WP_List_Table {
 			if ( ! wp_verify_nonce( $nonce, 'bulk-' . $this->_args['plural'] ) ){
 				wp_die( 'Nope! Security check failed!' );
 			} else {
-				$template_ids = esc_sql( $_POST['bulk'] );
-				if ( $template_ids ){
+				$document_ids = esc_sql( $_POST['bulk'] );
+				if ( $document_ids ){
 					
 					switch( $action ){
 						
 						case 'bulk-trash':
-							foreach ( $template_ids as $template_id ) {
-								wp_trash_post( $template_id );
+							foreach ( $document_ids as $document_id ) {
+								wp_trash_post( $document_id );
 							}
 							break;
 							
 						case 'bulk-delete':
-							foreach ( $template_ids as $template_id ) {
-								wp_delete_post( $template_id );
+							foreach ( $document_ids as $document_id ) {
+								wp_delete_post( $document_id );
 							}
 							break;
 						default:

@@ -1,0 +1,79 @@
+
+@import "susy";
+
+$susy: (
+  columns: 5,
+  container: 100%,
+  gutters: 1/8,
+  global-box-sizing: border-box
+);
+
+.cmb2-tree-properties-wrapper {
+
+  @include container;
+   
+  .jstree-wrapper {
+    @include span(2);
+  }
+  
+  .node-properties-wrapper {
+    @include span(3);
+    margin-right: 0;
+    
+    .form-fields-box {
+      margin: 0em 0em 1em 0;
+      
+      &.selected-node {
+        margin: 0;
+      }
+      
+      &:after {
+        clear: both;
+        content: "";
+        display: block;
+        width: 100%;
+      }
+      
+      .form-fields-box-th,
+      .form-fields-box-td {
+        width: 45%;
+      }
+      
+      
+      .form-fields-box-th {
+        color: #222;
+        float: left;
+        font-weight: 600;
+        vertical-align: top;
+        padding: 0 10px 0 0;
+      }
+      
+      .form-fields-box-td {
+        float: right;
+        margin-bottom: 0;
+        padding: 0;        
+      }
+      
+      
+      .desc {
+        font-style: italic;
+        font-weight: normal;
+        color: #aaa;
+        padding-top: .5em;        
+        padding-bottom: .5em;
+        display: block;
+        &.desc-radio {
+          margin-left: 23px;
+        }
+      }
+    }
+  }
+  
+  
+  .tree-properties-data-wrapper {
+    @include span(5);
+    // border: solid red;
+  }
+    
+  
+}

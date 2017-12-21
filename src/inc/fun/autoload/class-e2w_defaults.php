@@ -7,7 +7,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 class E2w_defaults {
 
-
 	protected $defaults = array();
 
 	public function add_default( $arr ){
@@ -22,7 +21,6 @@ class E2w_defaults {
 		}
 			return null;
 	}
-
 
 }
 
@@ -39,7 +37,6 @@ function e2w_init_defaults(){
 }
 add_action( 'admin_init', 'e2w_init_defaults', 1 );
 add_action( 'init', 'e2w_init_defaults', 1 );
-
 
 
 ?>

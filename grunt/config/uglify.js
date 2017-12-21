@@ -8,6 +8,11 @@ module.exports = {
 			rename: function (dst, src) {
 				return dst + '/' + src.replace('.js', '.min.js');
 			}			
-		}]		
+		}]
+	},
+	options: {
+		mangle: false,
+		compress: false,
+		beautify: true,
 	}
 };

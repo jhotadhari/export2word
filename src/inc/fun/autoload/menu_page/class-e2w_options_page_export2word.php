@@ -20,29 +20,25 @@ class E2w_options_page_export2word {
 	
 	private $tabs = array(
 		
+		'documents' => array(
+			'documents' =>  'Documents',
+			//'metabox_form_args' => array(
+			//	'save_button' => __('Save','export2word')
+			//)
+		),
 		
 		'templates' => array(
-			'templates' => 'Templates',
+			'templates' =>  'Templates',
 			//'metabox_form_args' => array(
 			//	'save_button' => __('Save','export2word')
 			//)
 		),
-		
 		
 		'settings' => array(
-			'settings' => 'Settings',
+			'settings' =>  'Settings',
 			//'metabox_form_args' => array(
 			//	'save_button' => __('Save','export2word')
 			//)
-		),
-
-		
-		'export' => array(
-			'export' => 'Export',
-			'metabox_form_args' => array(
-				//'save_button' => __('Export','export2word'),
-				'save_button' => 'Export'
-			),
 		),
 		
 	);	
@@ -75,6 +71,8 @@ class E2w_options_page_export2word {
 	
 	// template WP_List_Table object
 	public $templates_obj;	
+	// documents WP_List_Table object
+	public $documents_obj;	
 
 	/**
 	 * Returns the running object
@@ -145,7 +143,6 @@ class E2w_options_page_export2word {
 	 */
 	public function add_options_page() {
 		
-		
 		$this->options_page = add_submenu_page( 
 			'tools.php', 
 			$this->title, 
@@ -161,7 +158,6 @@ class E2w_options_page_export2word {
 		add_action( "admin_print_styles-{$this->options_page}", array( 'CMB2_hookup', 'enqueue_cmb_css' ) );
 	}
 	
-	
 	public function screen_option() {
 	
 		$option = 'per_page';
@@ -173,9 +169,9 @@ class E2w_options_page_export2word {
 	
 		add_screen_option( $option, $args );
 	
-		$this->templates_obj = new E2w_Templates_List();
+		$this->templates_obj = new E2w_List_Table_Templates();
+		$this->documents_obj = new E2w_List_Table_Documents();
 	}
-	
 
 	/**
 	 * Admin page markup. Mostly handled by CMB2
@@ -198,9 +194,7 @@ class E2w_options_page_export2word {
 			$wrapper_start .= '</h2>';
 		$wrapper_end = '</div>';
 		
-		
 		echo $wrapper_start;
-		
 		
 		if ( $active_tab == 'templates' ) {
 			
@@ -220,7 +214,6 @@ class E2w_options_page_export2word {
 				$this->templates_obj->search_box('Search', 'ID');
 			echo '</form>';
 			
-			
 			?>
 			<div id="poststuff">
 				<div id="post-body" class="metabox-holder columns-1">
@@ -238,9 +231,42 @@ class E2w_options_page_export2word {
 			</div>
 			<?php	
 		
-		}
-		
-		else {
+		} elseif ( $active_tab == 'documents' ) {
+			
+			// new document button
+			echo '<br>';
+			$new_document_link = admin_url('post-new.php?post_type=e2w_document');
+			echo '<a href="' . $new_document_link . '" class="page-title-action">' . __( 'Create a new Document', 'export2word' ) . '</a>';
+			echo '<br>';
+			
+			$this->documents_obj->prepare_items();
+			
+			$this->documents_obj->views();
+			
+			// search box
+			echo '<form method="post">';
+				echo '<input type="hidden" name="page" value="' . $this->key  . '" />';
+				$this->documents_obj->search_box('Search', 'ID');
+			echo '</form>';
+			
+			?>
+			<div id="poststuff">
+				<div id="post-body" class="metabox-holder columns-1">
+					<div id="post-body-content">
+						<div class="meta-box-sortables ui-sortable">
+							<form method="post">
+								<?php
+								
+								$this->documents_obj->display(); ?>
+							</form>
+						</div>
+					</div>
+				</div>
+				<br class="clear">
+			</div>
+			<?php			
+			
+		} else {
 		// form
 		cmb2_metabox_form(
 			$this->metabox_ids[$active_tab]['metabox_id'],
@@ -248,12 +274,10 @@ class E2w_options_page_export2word {
 			isset( $this->metabox_ids[$active_tab]['metabox_form_args'] ) ? $this->metabox_ids[$active_tab]['metabox_form_args'] : array()
 		);
 		}
-		
 	
 		echo $wrapper_end;
 
 	}
-	
 	
 	public function add_options_page_metabox__settings() {
 		$tab = 'settings';
@@ -293,6 +317,26 @@ class E2w_options_page_export2word {
 	
 	}
 	
+	public function add_options_page_metabox__documents() {
+		$tab = 'documents';
+		
+		$metabox_id = $this->key . '_' . $tab;
+		
+		// hook in our save notices
+		add_action( "cmb2_save_options-page_fields_{$metabox_id}", array( $this, 'settings_notices' ), 10, 2 );
+
+		$cmb = new_cmb2_box( array(
+			'id'         => $metabox_id,
+			'hookup'     => false,
+			'cmb_styles' => false,
+			'show_on'    => array(
+				// These are important, don't remove
+				'key'   => 'options-page',
+				'value' => array( $this->key, )
+			),
+		) );
+	
+	}	
 	
 	public function add_options_page_metabox__templates() {
 		$tab = 'templates';
@@ -312,78 +356,8 @@ class E2w_options_page_export2word {
 				'value' => array( $this->key, )
 			),
 		) );
-		
-		// Set our CMB2 fields
-		$cmb->add_field( array(
-			'name' => __( 'Test Text', 'export2word' ),
-			'desc' => __( 'field description (optional)', 'export2word' ),
-			'id'   => 'templates_test_text',
-			'type' => 'text',
-			'default' => 'Default Text',
-		) );
-
-		$cmb->add_field( array(
-			'name'    => __( 'Test Color Picker', 'export2word' ),
-			'desc'    => __( 'field description (optional)', 'export2word' ),
-			'id'      => 'templates_test_colorpicker',
-			'type'    => 'colorpicker',
-			'default' => '#bada55',
-		) );
 	
 	}
-	
-	
-	public function add_options_page_metabox__export() {
-		$tab = 'export';
-		
-		$metabox_id = $this->key . '_' . $tab;
-		
-		// hook in our save notices
-		add_action( "cmb2_save_options-page_fields_{$metabox_id}", array( $this, 'settings_notices' ), 10, 2 );
-
-		$cmb = new_cmb2_box( array(
-			'id'         => $metabox_id,
-			'hookup'     => false,
-			'cmb_styles' => false,
-			'show_on'    => array(
-				// These are important, don't remove
-				'key'   => 'options-page',
-				'value' => array( $this->key, )
-			),
-		) );
-		
-		// Set our CMB2 fields
-		//$cmb->add_field( array(
-		//	'name' => __( 'Test Text', 'export2word' ),
-		//	'desc' => __( 'field description (optional)', 'export2word' ),
-		//	'id'   => 'export_test_text',
-		//	'type' => 'text',
-		//	'default' => 'Default Text',
-		//) );
-
-		//$cmb->add_field( array(
-		//	'name'    => __( 'Test Color Picker', 'export2word' ),
-		//	'desc'    => __( 'field description (optional)', 'export2word' ),
-		//	'id'      => 'export_test_colorpicker',
-		//	'type'    => 'colorpicker',
-		//	'default' => '#bada55',
-		//) );
-		
-		$cmb->add_field( array(
-			'name' => __('Content','export2word'),
-			'id'   => 'test_content',	// The 'id' should not be set to 'content' as the standard editor has this id and it will result in a non working editor. 
-			'type' => 'wysiwyg',
-			'options' => array(
-				'media_buttons' => true,
-				'textarea_rows' => 8,
-			)
-		) );		
-		
-	
-	}
-	
-	
-	
 	
 	protected function get_metabox_by_nonce( $nonce, $return = 'metabox' ) {
 		if (! $nonce || ! strpos($nonce, 'nonce_CMB2php') === 0 )
@@ -431,14 +405,13 @@ class E2w_options_page_export2word {
 
 		switch ( $tab_name ){
 			
-			case 'settings':
+			case 'documents':
 				break;
-			
+				
 			case 'templates':
 				break;
-			
-			case 'export':
-				// e2w_export( $sanitized_values );
+
+			case 'settings':
 				break;
 				
 			default:
@@ -455,7 +428,6 @@ class E2w_options_page_export2word {
 		}
 		return $vals;
 	}	
-
 
 	/**
 	 * Register settings notices for display
@@ -531,6 +503,5 @@ function e2w_export2word_get_option( $key = '', $default = null ) {
 
 // Get it started
 e2w_options_page_export2word();
-
 
 ?>

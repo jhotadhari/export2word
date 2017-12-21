@@ -143,12 +143,12 @@ class E2w_export2word {
 	
 	// include files to register post types and taxonomies
 	protected function register_post_types_and_taxs() {
-		$this->include_dir( WP_PLUGIN_DIR . '/export2word/' . 'inc/post_types_taxs/autoload/' );
+		self::include_dir( WP_PLUGIN_DIR . '/export2word/' . 'inc/post_types_taxs/autoload/' );
 	}
 	
 	// include files to add user roles and capabilities
 	protected function add_roles_and_capabilities() {
-		$this->include_dir( WP_PLUGIN_DIR . '/export2word/' . 'inc/roles_capabilities/autoload/' );
+		self::include_dir( WP_PLUGIN_DIR . '/export2word/' . 'inc/roles_capabilities/autoload/' );
 	}	
 	
 	// check DB_VERSION and require the update class if necessary
@@ -168,15 +168,24 @@ class E2w_export2word {
 	}
 	
 	public function include_inc_dep_autoload() {
-		$this->include_dir(  WP_PLUGIN_DIR . '/export2word/' . 'inc/dep/autoload/' );
+		self::include_dir(  WP_PLUGIN_DIR . '/export2word/' . 'inc/dep/autoload/' );
 	}
 	
 	public function include_inc_fun_autoload() {
-		$this->include_dir(  WP_PLUGIN_DIR . '/export2word/' . 'inc/fun/autoload/' );
+		self::include_dir(  WP_PLUGIN_DIR . '/export2word/' . 'inc/fun/autoload/' );
 	}	
 	
-	public function include_dir( $directory ){
-		$files =  glob( $directory . '*.php');
+	
+	public static function rglob( $pattern, $flags = 0) {
+		$files = glob( $pattern, $flags ); 
+		foreach ( glob( dirname( $pattern ).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir ) {
+			$files = array_merge( $files, self::rglob( $dir.'/'.basename( $pattern ), $flags ) );
+		}
+		return $files;
+	}	
+	
+	protected static function include_dir( $directory ){
+		$files =  self::rglob( $directory . '*.php');
 		if ( count($files) > 0 ){
 			foreach ( $files as $file) {
 				include_once( $file );
