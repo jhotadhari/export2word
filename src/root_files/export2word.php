@@ -18,16 +18,23 @@ class E2w_export2word {
 		'plugins' => array(
 			/*
 			'woocommerce' => array(
-				'name'				=> 'WooCommerce',	// full name
-				'ver_at_least'		=> '3.0.0',			// min version of required plugin
-				'ver_tested_up_to'	=> '3.2.1',			// tested with required plugin up to
-				'class'				=> 'WooCommerce',	// test by class
-				//'function'		=> 'WooCommerce',	// test by function
+				'name'				=> 'WooCommerce',				// full name
+				'link'				=> 'https://woocommerce.com/',	// link
+				'ver_at_least'		=> '3.0.0',						// min version of required plugin
+				'ver_tested_up_to'	=> '3.2.1',						// tested with required plugin up to
+				'class'				=> 'WooCommerce',				// test by class
+				//'function'		=> 'WooCommerce',				// test by function
 			),
 			*/
 		),
 		'php_version' => '5.6',						// required php version
 		'wp_version' => '4.8',						// required wp version
+		'php_ext' => array(
+			'xml' => array(
+				'name'				=> 'Xml',											// full name
+				'link'				=> 'http://php.net/manual/en/xml.installation.php',	// link
+			),
+		),
 	);
 	protected $dependencies_ok = false;
 
@@ -88,29 +95,42 @@ class E2w_export2word {
 		
 		// check php version
 		if ( version_compare( PHP_VERSION, $this->deps['php_version'], '<') ){
-			array_push( $error_msgs, 'PHP version ' . $this->deps['php_version'] . ' or higher.');
+			$err_msg = sprintf( 'PHP version %s or higher', $this->deps['php_version'] );
+			array_push( $error_msgs, $err_msg );
+		}
+		
+		// check php extensions
+		if ( array_key_exists( 'php_ext', $this->deps ) && is_array( $this->deps['php_ext'] ) ){
+			foreach ( $this->deps['php_ext'] as $php_ext_key => $php_ext_val ){
+				if ( ! extension_loaded( $php_ext_key ) ) {
+					$err_msg = sprintf( '<a href="%s" target="_blank">%s</a> php extension to be installed', $php_ext_val['link'], $php_ext_val['name'] );
+					array_push( $error_msgs, $err_msg );
+				}
+			}
 		}
 		
 		// check wp version
 		// include an unmodified $wp_version
 		include( ABSPATH . WPINC . '/version.php' );
 		if ( version_compare( $wp_version, $this->deps['wp_version'], '<') ){
-			array_push( $error_msgs, 'WordPress version ' . $this->deps['wp_version'] . ' or higher.');
+			$err_msg = sprintf( 'WordPress version %s or higher', $this->deps['wp_version'] );
+			array_push( $error_msgs, $err_msg );
 		}		
 		
 		// check plugin dependencies
 		if ( array_key_exists( 'plugins', $this->deps ) && is_array( $this->deps['plugins'] ) ){
 			foreach ( $this->deps['plugins'] as $dep_plugin ){
+				$err_msg = sprintf( ' <a href="%s" target="_blank">%s</a> Plugin version %s (tested up to %s)', $dep_plugin['link'], $dep_plugin['name'], $dep_plugin['ver_at_least'], $dep_plugin['ver_tested_up_to']);
 				// check by class
 				if ( array_key_exists( 'class', $dep_plugin ) && strlen( $dep_plugin['class'] ) > 0 ){
 					if ( ! class_exists( $dep_plugin['class'] ) ) {
-						array_push( $error_msgs, $dep_plugin['name'] . ' Plugin version ' . $dep_plugin['ver_at_least'] . ' (tested up to ' . $dep_plugin['ver_tested_up_to'] . ')');
+						array_push( $error_msgs, $err_msg );
 					}
 				}
 				// check by function
 				if ( array_key_exists( 'function', $dep_plugin ) && strlen( $dep_plugin['function'] ) > 0 ){
 					if ( ! function_exists( $dep_plugin['function'] ) ) {
-						array_push( $error_msgs, $dep_plugin['name'] . ' Plugin version ' . $dep_plugin['ver_at_least'] . ' (tested up to ' . $dep_plugin['ver_tested_up_to'] . ')');
+						array_push( $error_msgs, $err_msg);
 					}
 				}
 			}
@@ -174,7 +194,6 @@ class E2w_export2word {
 	public function include_inc_fun_autoload() {
 		self::include_dir(  WP_PLUGIN_DIR . '/export2word/' . 'inc/fun/autoload/' );
 	}	
-	
 	
 	public static function rglob( $pattern, $flags = 0) {
 		$files = glob( $pattern, $flags ); 

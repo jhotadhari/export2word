@@ -5,8 +5,8 @@
   "uri": "http://example.com/export2word",
   "textDomain": "export2word",
   "domainPath": "/languages",
-  "version": "0.0.0",
-  "description": "This is a beautiful plugin",
+  "version": "0.0.1",
+  "description": "Export a website as a docx document",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,9 +16,9 @@
   "authorUri": "http://waterproof-webdesign.info",
   "license": "GNU General Public License v2 or later",
   "licenseUri": "http://www.gnu.org/licenses/gpl-2.0.html",
-  "tags": "",
-  "donateLink": "",
-  "wpVersionTested": "4.8",
+  "tags": "export,word,docx",
+  "donateLink": "http://waterproof-webdesign.info/donate",
+  "wpVersionTested": "4.9.1",
   "wpRequiresAtLeast": "4.7",
   "devDependencies": {
     "grunt": "^1.0.1",

@@ -1,0 +1,76 @@
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="src/jquery.jsForm.js"></script>
+<script>
+$(function(){
+    // some json data
+    var jsonData = {
+	"description": "testing",    		
+    "objects": [
+        {
+            "id": 1,
+            "enable": true,
+            "find": {
+                "name": "asdf"
+            }
+        },
+        {
+            "id": 2,
+            "enable": false,
+            "find": {
+                "name": "asdf"
+            }
+        }
+        
+    ]
+};
+
+    $("textarea.object[name='objects.']").on("fill", function(){
+    	// fill will be triggered after the content has been inserted - this way we can override that
+        $(this).val(JSON.stringify($(this).data("pojo")));
+    });
+    
+    // update the pojo with the "json" content
+    $("textarea.object[name='objects.']").keyup(function(){
+    	try {
+    		$(this).data().pojo = JSON.parse($(this).val());
+    		// json is fine
+    		$(this).css("border", "2px solid green");
+    		$(this).attr("title", "JSON ok");
+    	} catch (ex) {
+    		// error in json (add a title field with the error)
+    		$(this).css("border", "2px solid red");
+    		$(this).attr("title", ex);
+    	}
+    });
+    
+    // initialize the form, prefix is optional and defaults to data
+    $("#details").jsForm({
+        data:jsonData
+    });
+
+    $("#show").click(function() {
+        // show the json data
+        alert(JSON.stringify($("#details").jsForm("get"), null, " "));
+    });
+});
+
+</script>
+</head>
+<body>
+
+<h1>Simple Form Test - working with objects</h1>
+<div id="details">
+	<input name="data.description"/>
+   <ul class="collection" data-field="data.objects">
+        <li>
+            <label for="objects.id">id:</label>
+            <input name="objects.id" title=''/> <br />
+            <textarea class="object" name="objects." ></textarea>
+        </li>
+    </ul>
+</div>
+<button id="show">Show Object</button>
+</body>
+</html>

@@ -69,7 +69,7 @@ module.exports = {
 			'<%= pattern.global_exclude %>',
 		],
 		tasks: [
-			'copy:readme',
+			'concat:readme',
 			'local_sync:<%= local_sync.wp_install %>'
 		]
 	},
