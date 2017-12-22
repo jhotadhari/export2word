@@ -200,12 +200,6 @@ class E2w_export2word {
 	
 	public function include_inc_fun_autoload() {
 		self::include_dir(  self::plugin_dir_path() . 'inc/fun/autoload/' );
-		
-		
-		new E2w_admin_notice ( self::plugin_dir_path(), false, false );
-		new E2w_admin_notice ( self::plugin_dir_url(), false, false );
-		
-		
 	}
 	
 	public static function rglob( $pattern, $flags = 0) {
@@ -224,7 +218,6 @@ class E2w_export2word {
 			}
 		}
 	}
-	
  
 }
 

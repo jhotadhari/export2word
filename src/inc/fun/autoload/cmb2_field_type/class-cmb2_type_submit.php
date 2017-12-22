@@ -25,10 +25,11 @@ function cmb2_init_field_subimt() {
 		public function render( $args = array() ) {
 			
 			// wrapper parameters
-			$button_wrapper_id = array_key_exists('button_wrapper_id', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_wrapper_id'] : 'publishing-action';
+			$button_wrapper_id = array_key_exists('button_wrapper_id', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_wrapper_id'] : esc_attr( 'publishing-action' );
 			// hidden input parameters
-			$button_hidden_name_id = array_key_exists('button_hidden_name_id', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_hidden_name_id'] : 'original_publish';
-			$button_hidden_value = array_key_exists('button_hidden_value', $this->field->args( 'attributes' ) ) ? $button_hidden_value = $this->field->args( 'attributes' )['button_hidden_value'] : $button_hidden_value = $_GET['action'] == 'edit' ? 'Update' : esc_attr('Publish');
+			$button_hidden_name_id = array_key_exists('button_hidden_name_id', $this->field->args( 'attributes' ) ) ? $this->field->args( 'attributes' )['button_hidden_name_id'] : esc_attr( 'original_publish' );
+			$button_hidden_value = array_key_exists('button_hidden_value', $this->field->args( 'attributes' ) ) ? $this->field->args( 'attributes' )['button_hidden_value'] : isset( $_GET['action'] ) && gettype( $_GET['action'] ) === 'string' && $_GET['action'] === 'edit' ? 'Update' : 'Publish';
+			
 			// submit button parameters
 			$button_text = array_key_exists('button_text', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_text'] : null;
 			$button_type = array_key_exists('button_type', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_type'] : 'primary';
@@ -40,11 +41,11 @@ function cmb2_init_field_subimt() {
 			
 				echo '<div id="' . $button_wrapper_id . '">';
 					echo '<span class="spinner"></span>';
-					echo '<input name="' . $button_hidden_name_id . '" id="' . $button_hidden_name_id . '" value="' . $button_hidden_value . '" type="hidden">';
+					echo '<input name="' . esc_attr( $button_hidden_name_id ) . '" id="' . esc_attr( $button_hidden_name_id ) . '" value="' . esc_attr( $button_hidden_value ) . '" type="hidden">';
 					echo get_submit_button(
-						$button_text,				// $text				null
+						esc_attr( $button_text ),	// $text				null
 						$button_type,				// $type				'primary'
-						$button_name,				// $name				'submit'
+						esc_attr( $button_name ),	// $name				'submit'
 						$button_wrap,				// $wrap				true
 						$button_other_attributes	// $other_attributes	null	array
 					);
