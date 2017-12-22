@@ -192,19 +192,18 @@ function cmb2_init_field_tree_properties() {
 		}		
 		
 		public function register_scripts() {
-			wp_register_script( 'jsForm',  WP_PLUGIN_URL . '/export2word/vendor/corinis/jsForm/js/jquery.jsForm.min.js', array( 'jquery' ));
-			wp_register_script( 'jstree',  WP_PLUGIN_URL . '/export2word/vendor/vakata/jstree/dist/jstree.min.js', array( 'jquery' ));
-			wp_register_script( 'cmb2_field_type_tree_properties',  WP_PLUGIN_URL . '/export2word/js/cmb2_field_type_tree_properties.min.js', array( 'jquery', 'jstree' ));
+			wp_register_script( 'jsForm',  E2w_export2word::plugin_dir_url() .'/vendor/corinis/jsForm/js/jquery.jsForm.min.js', array( 'jquery' ));
+			wp_register_script( 'jstree',  E2w_export2word::plugin_dir_url() .'/js/jstree.min.js', array( 'jquery' ));
+			wp_register_script( 'cmb2_field_type_tree_properties',  E2w_export2word::plugin_dir_url() .'/js/cmb2_field_type_tree_properties.min.js', array( 'jquery', 'jstree' ));
 		}
 		
 		public function localize_scripts(){
 			wp_localize_script( 'cmb2_field_type_tree_properties', 'tree_properties_data', $this->localize_data );
 		}
 		
-		
 		public function enqueue_style_script(){
-			wp_enqueue_style( 'jstree',  WP_PLUGIN_URL . '/export2word/vendor/vakata/jstree/dist/themes/default/style.min.css', false );
-			wp_enqueue_style( 'jstree_custom',  WP_PLUGIN_URL . '/export2word/css/cmb2_field_type_tree_properties.min.css', false );
+			wp_enqueue_style( 'jstree',  E2w_export2word::plugin_dir_url() .'/css/jstree.min.css', false );
+			wp_enqueue_style( 'jstree_custom',  E2w_export2word::plugin_dir_url() .'/css/cmb2_field_type_tree_properties.min.css', false );
 			wp_enqueue_script( 'jsForm' );
 			wp_enqueue_script( 'jstree' );
 			wp_enqueue_script( 'cmb2_field_type_tree_properties' );

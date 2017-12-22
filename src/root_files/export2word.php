@@ -42,9 +42,15 @@ class E2w_export2word {
 		register_activation_hook( __FILE__, array( $this, 'on_activate' ) );
 		register_deactivation_hook( __FILE__, array( $this, 'on_deactivate' ) );
 		register_uninstall_hook( __FILE__, array( $this, 'on_uninstall' ) );
-		
 		add_action( 'plugins_loaded', array( $this, 'start_plugin' ), 9 );
-		
+	}
+	
+	public static function plugin_dir_url(){
+		return plugins_url( '', __FILE__ );		// no trailing slash
+	}
+	
+	public static function plugin_dir_path(){
+		return plugin_dir_path( __FILE__ );		// trailing slash
 	}
     
 	public function start_plugin() {
@@ -163,19 +169,20 @@ class E2w_export2word {
 	
 	// include files to register post types and taxonomies
 	protected function register_post_types_and_taxs() {
-		self::include_dir( WP_PLUGIN_DIR . '/export2word/' . 'inc/post_types_taxs/autoload/' );
+		self::include_dir( self::plugin_dir_path() . 'inc/post_types_taxs/autoload/' );
 	}
 	
 	// include files to add user roles and capabilities
 	protected function add_roles_and_capabilities() {
-		self::include_dir( WP_PLUGIN_DIR . '/export2word/' . 'inc/roles_capabilities/autoload/' );
+		self::include_dir( self::plugin_dir_path() . 'inc/roles_capabilities/autoload/' );
 	}	
 	
 	// check DB_VERSION and require the update class if necessary
 	protected function maybe_update() {
 		if ( get_option( 'e2w_db_version' ) < self::DB_VERSION ) {
-			require_once( WP_PLUGIN_DIR . '/export2word/' . 'inc/dep/class-e2w-update.php' );
-			new Testing_update();
+			// require_once( self::plugin_dir_path() . 'inc/dep/class-e2w-update.php' );
+			// new E2w_Update();
+			// class E2w_Update is missing ??? !!!
 		}
 	}
 	
@@ -183,17 +190,23 @@ class E2w_export2word {
 		load_plugin_textdomain(
 			'export2word',
 			false,
-			dirname( WP_PLUGIN_DIR . '/export2word/' . 'languages' )
+			dirname( self::plugin_dir_path() . 'languages' )
 		);
 	}
 	
 	public function include_inc_dep_autoload() {
-		self::include_dir(  WP_PLUGIN_DIR . '/export2word/' . 'inc/dep/autoload/' );
+		self::include_dir(  self::plugin_dir_path() . 'inc/dep/autoload/' );
 	}
 	
 	public function include_inc_fun_autoload() {
-		self::include_dir(  WP_PLUGIN_DIR . '/export2word/' . 'inc/fun/autoload/' );
-	}	
+		self::include_dir(  self::plugin_dir_path() . 'inc/fun/autoload/' );
+		
+		
+		new E2w_admin_notice ( self::plugin_dir_path(), false, false );
+		new E2w_admin_notice ( self::plugin_dir_url(), false, false );
+		
+		
+	}
 	
 	public static function rglob( $pattern, $flags = 0) {
 		$files = glob( $pattern, $flags ); 

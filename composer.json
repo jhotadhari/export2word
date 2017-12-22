@@ -2,10 +2,10 @@
   "name": "jhotadhari/export2word",
   "description": "???",
   "require": {
+  	"composer/installers":"*",
     "phpoffice/phpword": "v0.13.*",
     "webdevstudios/cmb2": "*",
     "jmarceli/integration-cmb2-qtranslate": "0.1.1",
-    "vakata/jstree":"*",
     "corinis/jsForm":"*"
   },
   "extra": {
@@ -28,18 +28,6 @@
         }
       }
     },
-      {
-         "type":"package",
-         "package":{
-            "name":"vakata/jstree",
-            "version":"0.0.0",
-            "source":{
-               "url":"https://github.com/vakata/jstree.git",
-               "type":"git",
-               "reference":"e7961162583f4a7644dc56bc6d9c61fcc087f544"
-            }
-         }
-      },
   {
 	 "type":"package",
 	 "package":{
