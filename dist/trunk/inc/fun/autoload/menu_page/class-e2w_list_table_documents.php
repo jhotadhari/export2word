@@ -24,7 +24,7 @@ class E2w_List_Table_Documents extends WP_List_Table {
 	
 	protected function get_views(){
 		$views = array();
-		$current = ( !empty($_REQUEST['viewvar']) ? $_REQUEST['viewvar'] : 'all');
+		$current = ( !empty( $_REQUEST['viewvar'] ) && gettype( $_REQUEST['viewvar'] ) === 'string' ? esc_attr( $_REQUEST['viewvar'] ) : 'all');
 		
 		// All link
 		$all_url = remove_query_arg('viewvar');
@@ -43,36 +43,43 @@ class E2w_List_Table_Documents extends WP_List_Table {
 		$document_id = $item['ID'];
 		$title = $item['title'];                                                                                            
 		
-		$e2w_nonce_document = wp_create_nonce( 'e2w_nonce_document' );
+		$nonce = wp_create_nonce( 'e2w_nonce_document' );
 		
-		$view = ( !empty($_REQUEST['viewvar']) ? $_REQUEST['viewvar'] : 'all');
+		$view = ( !empty($_REQUEST['viewvar']) && gettype( $_REQUEST['viewvar'] ) === 'string' ? esc_attr( $_REQUEST['viewvar'] ) : 'all');
 		
 		$actions = array(
-			'edit' 		=> sprintf( '<a href="%s">Edit</a>', get_edit_post_link( $document_id ) ),
+			'edit' 		=> sprintf( '<a href="%s">%s</a>', esc_url( get_edit_post_link( $document_id ) ), esc_attr__( 'Edit', 'export2word' ) ),
 		);
 		
-		if ( $view == 'trash' ) {
+		if ( $view === 'trash' ) {
+			
 			$actions['delete'] = sprintf(
-				'<a href="?page=%s&action=%s&document=%s&_wpnonce=%s&viewvar=%s">Delete</a>',
+				'<a href="?page=%s&action=%s&document=%s&_wpnonce=%s&viewvar=%s">%s</a>',
 				esc_attr( $_REQUEST['page'] ),
-				'delete', 
+				esc_attr( 'delete' ), 
 				absint( $item['ID'] ), 
-				$e2w_nonce_document,
-				$view
-			);		
-		} else {
-			$actions['trash'] = sprintf(
-				'<a href="?page=%s&action=%s&document=%s&_wpnonce=%s&viewvar=%s">Trash</a>',
-				esc_attr( $_REQUEST['page'] ),
-				'trash', 
-				absint( $item['ID'] ), 
-				$e2w_nonce_document,
-				$view
+				$nonce,
+				$view,
+				esc_attr__( 'Delete', 'export2word' )
 			);
+
+		} else {
+			
+			$actions['trash'] = sprintf(
+				'<a href="?page=%s&action=%s&document=%s&_wpnonce=%s&viewvar=%s">%s</a>',
+				esc_attr( $_REQUEST['page'] ),
+				esc_attr( 'trash' ), 
+				absint( $item['ID'] ), 
+				$nonce,
+				$view,
+				esc_attr__( 'Trash', 'export2word' )
+			);
+			
 		}
 		
 		return $title . $this->row_actions( $actions );
 	}
+	
 		
 	public function column_default( $item, $column_name ) {
 		switch ( $column_name ) {
@@ -93,7 +100,7 @@ class E2w_List_Table_Documents extends WP_List_Table {
 		$columns = array(
 			'cb'      => '<input type="checkbox" />',
 			'title'   => __( 'Title', 'export2word' ),
-			'egal'    => __( 'Egal', 'export2word' ),
+			// 'egal'    => __( 'Egal', 'export2word' ),
 		);
 		
 		return $columns;
@@ -109,15 +116,15 @@ class E2w_List_Table_Documents extends WP_List_Table {
 	
 	public function get_bulk_actions() {
 		$actions = array();
-		$actions['bulk-trash'] = 'Trash';
-		$actions['bulk-delete'] = 'Delete';
+		$actions['bulk-trash'] = __( 'Trash', 'export2word' );
+		$actions['bulk-delete'] = __( 'Delete', 'export2word' );
 		return $actions;
 	}
 	
 	protected function get_documents( $per_page = null, $current_page = null, $s = null ){
 		
-		$orderby = !empty( $_REQUEST['orderby'] ) ? $_REQUEST['orderby'] : 'ID';
-		$order = !empty( $_REQUEST['order'] ) ? $_REQUEST['order'] : 'DESC';
+		$orderby = !empty( $_REQUEST['orderby'] ) && gettype( $_REQUEST['orderby'] ) === 'string' ? esc_attr( $_REQUEST['orderby'] ) : 'ID';
+		$order = !empty( $_REQUEST['order'] ) && gettype( $_REQUEST['order'] ) === 'string' ? esc_attr( $_REQUEST['order'] ) : 'DESC';
 	
 		$args = array(
 			'post_type'    => 'e2w_document',
@@ -134,8 +141,8 @@ class E2w_List_Table_Documents extends WP_List_Table {
 			$args['offset'] = ( $current_page - 1 ) * $per_page;
 		}
 	
-		if ( !empty( $_REQUEST['viewvar'] ) ){
-			switch ( $_REQUEST['viewvar'] ){
+		if ( !empty( $_REQUEST['viewvar'] && gettype( $_REQUEST['viewvar'] ) === 'string' ) ){
+			switch ( esc_attr( $_REQUEST['viewvar'] ) ){
 				case 'trash':
 					$args['post_status'] = 'trash';
 					break;
@@ -171,7 +178,7 @@ class E2w_List_Table_Documents extends WP_List_Table {
 		
 		$per_page     = $this->get_items_per_page( 'documents_per_page', 5 );
 		$current_page = $this->get_pagenum();
-		$s = isset( $_REQUEST['s'] ) ? $_REQUEST['s'] : null;
+		$s = isset( $_REQUEST['s'] ) && gettype( $_REQUEST['s'] ) === 'string' ? esc_attr( $_REQUEST['s'] ) : null;
 		
 		$documents = $this->get_documents( $per_page, $current_page, $s );	
 		
@@ -179,10 +186,8 @@ class E2w_List_Table_Documents extends WP_List_Table {
 		if ( is_array($documents) ){
 			foreach ( $documents as $document ){
 				$document_id = $document['ID'];
-				
 				$documents_arr[$document_id]['ID'] = $document_id;
 				$documents_arr[$document_id]['title'] = $document['title'];
-				
 			}
 		}
 		
@@ -198,36 +203,38 @@ class E2w_List_Table_Documents extends WP_List_Table {
 	
 	public function process_bulk_action() {
 		
-		$view = ( !empty($_REQUEST['viewvar']) ? $_REQUEST['viewvar'] : 'all');
+		$view = !empty( $_REQUEST['viewvar'] ) && gettype( $_REQUEST['viewvar'] ) === 'string' ? esc_attr( $_REQUEST['viewvar'] ) : 'all';
+		
 		$action = $this->current_action();
 		
 		if ( isset( $action ) && !empty( $action ) ) {
-			if ( strpos( $action, 'bulk-' ) == 0 && is_numeric( strpos( $action, 'bulk-' ) ) ){
-				$this->process_bulk_action_bulk( $this->current_action() );
+			if ( strpos( $action, 'bulk-' ) === 0 && is_numeric( strpos( $action, 'bulk-' ) ) ){
+				$this->process_bulk_action_bulk( $action );
 			} else {
-				$this->process_bulk_action_single( $this->current_action() );
+				$this->process_bulk_action_single( $action );
 			}
 		}
 		
 	}
 	
 	protected function process_bulk_action_single( $action ) {
-	
+		
 		$nonce = esc_attr( $_REQUEST['_wpnonce'] );
 		
 		if ( ! wp_verify_nonce( $nonce, 'e2w_nonce_document' ) ) {
 			wp_die( 'Nope! Security check failed!' );
-		}
-		else {
-		
-			$document_id = absint( $_GET['document'] );
-		
+		} else {
+			
+			$post_id = is_numeric( $_GET['document'] ) ? absint( $_GET['document'] ) : null;
+			if ( $post_id === null )
+				return;
+			
 			switch( $action ){
 				case 'trash':
-						wp_trash_post( $document_id );
+						wp_trash_post( $post_id );
 					break;
 				case 'delete':
-						wp_delete_post( $document_id );
+						wp_delete_post( $post_id );
 					break;
 				default:
 					// silence ...

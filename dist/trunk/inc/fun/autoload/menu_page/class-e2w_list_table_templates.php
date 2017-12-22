@@ -24,7 +24,7 @@ class E2w_List_Table_Templates extends WP_List_Table {
 	
 	protected function get_views(){
 		$views = array();
-		$current = ( !empty($_REQUEST['viewvar']) ? $_REQUEST['viewvar'] : 'all');
+		$current = ( !empty( $_REQUEST['viewvar'] ) && gettype( $_REQUEST['viewvar'] ) === 'string' ? esc_attr( $_REQUEST['viewvar'] ) : 'all');
 		
 		// All link
 		$all_url = remove_query_arg('viewvar');
@@ -43,33 +43,38 @@ class E2w_List_Table_Templates extends WP_List_Table {
 		$template_id = $item['ID'];
 		$title = $item['title'];                                                                                            
 		
-		$e2w_nonce_template = wp_create_nonce( 'e2w_nonce_template' );
+		$nonce = wp_create_nonce( 'e2w_nonce_template' );
 		
-		$view = ( !empty($_REQUEST['viewvar']) ? $_REQUEST['viewvar'] : 'all');
+		$view = ( !empty($_REQUEST['viewvar']) && gettype( $_REQUEST['viewvar'] ) === 'string' ? esc_attr( $_REQUEST['viewvar'] ) : 'all');
 		
 		$actions = array(
-			'edit' 		=> sprintf( '<a href="%s">Edit</a>', get_edit_post_link( $template_id ) ),
+			'edit' 		=> sprintf( '<a href="%s">%s</a>', esc_url( get_edit_post_link( $template_id ) ), esc_attr__( 'Edit', 'export2word' ) ),
 		);
 		
-		if ( $view == 'trash' ) {
+		if ( $view === 'trash' ) {
+			
 			$actions['delete'] = sprintf(
-				'<a href="?page=%s&action=%s&template=%s&_wpnonce=%s&viewvar=%s">Delete</a>',
+				'<a href="?page=%s&action=%s&template=%s&_wpnonce=%s&viewvar=%s">%s</a>',
 				esc_attr( $_REQUEST['page'] ),
-				'delete', 
+				esc_attr( 'delete' ), 
 				absint( $item['ID'] ), 
-				$e2w_nonce_template,
-				$view
-			);		
+				$nonce,
+				$view,
+				esc_attr__( 'Delete', 'export2word' )
+			);
 
 		} else {
+			
 			$actions['trash'] = sprintf(
-				'<a href="?page=%s&action=%s&template=%s&_wpnonce=%s&viewvar=%s">Trash</a>',
+				'<a href="?page=%s&action=%s&template=%s&_wpnonce=%s&viewvar=%s">%s</a>',
 				esc_attr( $_REQUEST['page'] ),
-				'trash', 
+				esc_attr( 'trash' ), 
 				absint( $item['ID'] ), 
-				$e2w_nonce_template,
-				$view
+				$nonce,
+				$view,
+				esc_attr__( 'Trash', 'export2word' )
 			);
+			
 		}
 		
 		return $title . $this->row_actions( $actions );
@@ -95,7 +100,7 @@ class E2w_List_Table_Templates extends WP_List_Table {
 		$columns = array(
 			'cb'      => '<input type="checkbox" />',
 			'title'   => __( 'Title', 'export2word' ),
-			'egal'    => __( 'Egal', 'export2word' ),
+			// 'egal'    => __( 'Egal', 'export2word' ),
 		);
 		
 		return $columns;
@@ -111,15 +116,15 @@ class E2w_List_Table_Templates extends WP_List_Table {
 	
 	public function get_bulk_actions() {
 		$actions = array();
-		$actions['bulk-trash'] = 'Trash';
-		$actions['bulk-delete'] = 'Delete';
+		$actions['bulk-trash'] = __( 'Trash', 'export2word' );
+		$actions['bulk-delete'] = __( 'Delete', 'export2word' );
 		return $actions;
 	}
 	
 	protected function get_templates( $per_page = null, $current_page = null, $s = null ){
 		
-		$orderby = !empty( $_REQUEST['orderby'] ) ? $_REQUEST['orderby'] : 'ID';
-		$order = !empty( $_REQUEST['order'] ) ? $_REQUEST['order'] : 'DESC';
+		$orderby = !empty( $_REQUEST['orderby'] ) && gettype( $_REQUEST['orderby'] ) === 'string' ? esc_attr( $_REQUEST['orderby'] ) : 'ID';
+		$order = !empty( $_REQUEST['order'] ) && gettype( $_REQUEST['order'] ) === 'string' ? esc_attr( $_REQUEST['order'] ) : 'DESC';
 	
 		$args = array(
 			'post_type'    => 'e2w_template',
@@ -136,8 +141,8 @@ class E2w_List_Table_Templates extends WP_List_Table {
 			$args['offset'] = ( $current_page - 1 ) * $per_page;
 		}
 		
-		if ( !empty( $_REQUEST['viewvar'] ) ){
-			switch ( $_REQUEST['viewvar'] ){
+		if ( !empty( $_REQUEST['viewvar'] && gettype( $_REQUEST['viewvar'] ) === 'string' ) ){
+			switch ( esc_attr( $_REQUEST['viewvar'] ) ){
 				case 'trash':
 					$args['post_status'] = 'trash';
 					break;
@@ -165,8 +170,6 @@ class E2w_List_Table_Templates extends WP_List_Table {
 		
 	}
 	
-	
-	
 	public function prepare_items() {
 	
 		$this->_column_headers = $this->get_column_info();
@@ -175,7 +178,7 @@ class E2w_List_Table_Templates extends WP_List_Table {
 		
 		$per_page     = $this->get_items_per_page( 'templates_per_page', 5 );
 		$current_page = $this->get_pagenum();
-		$s = isset( $_REQUEST['s'] ) ? $_REQUEST['s'] : null;
+		$s = isset( $_REQUEST['s'] ) && gettype( $_REQUEST['s'] ) === 'string' ? esc_attr( $_REQUEST['s'] ) : null;
 		
 		$templates = $this->get_templates( $per_page, $current_page, $s );	
 		
@@ -183,10 +186,8 @@ class E2w_List_Table_Templates extends WP_List_Table {
 		if ( is_array($templates) ){
 			foreach ( $templates as $template ){
 				$template_id = $template['ID'];
-				
 				$templates_arr[$template_id]['ID'] = $template_id;
 				$templates_arr[$template_id]['title'] = $template['title'];
-				
 			}
 		}
 		
@@ -202,38 +203,38 @@ class E2w_List_Table_Templates extends WP_List_Table {
 	
 	public function process_bulk_action() {
 		
-		$view = ( !empty($_REQUEST['viewvar']) ? $_REQUEST['viewvar'] : 'all');
+		$view = !empty( $_REQUEST['viewvar'] ) && gettype( $_REQUEST['viewvar'] ) === 'string' ? esc_attr( $_REQUEST['viewvar'] ) : 'all';
 		
 		$action = $this->current_action();
 		
-		
 		if ( isset( $action ) && !empty( $action ) ) {
-			if ( strpos( $action, 'bulk-' ) == 0 && is_numeric( strpos( $action, 'bulk-' ) ) ){
-				$this->process_bulk_action_bulk( $this->current_action() );
+			if ( strpos( $action, 'bulk-' ) === 0 && is_numeric( strpos( $action, 'bulk-' ) ) ){
+				$this->process_bulk_action_bulk( $action );
 			} else {
-				$this->process_bulk_action_single( $this->current_action() );
+				$this->process_bulk_action_single( $action );
 			}
 		}
 		
 	}
 	
 	protected function process_bulk_action_single( $action ) {
-	
+		
 		$nonce = esc_attr( $_REQUEST['_wpnonce'] );
 		
 		if ( ! wp_verify_nonce( $nonce, 'e2w_nonce_template' ) ) {
 			wp_die( 'Nope! Security check failed!' );
-		}
-		else {
-		
-			$template_id = absint( $_GET['template'] );
-		
+		} else {
+			
+			$post_id = is_numeric( $_GET['template'] ) ? absint( $_GET['template'] ) : null;
+			if ( $post_id === null )
+				return;
+			
 			switch( $action ){
 				case 'trash':
-						wp_trash_post( $template_id );
+						wp_trash_post( $post_id );
 					break;
 				case 'delete':
-						wp_delete_post( $template_id );
+						wp_delete_post( $post_id );
 					break;
 				default:
 					// silence ...

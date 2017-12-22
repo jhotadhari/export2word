@@ -23,7 +23,7 @@ Class E2w_Exporter {
 		$this->args = wp_parse_args( $args, $defaults );
 		
 		// Include the PhpWord through composer autoload, create a new PhpWord Object			// http://phpword.codeplex.com/documentation
-		include_once( WP_PLUGIN_DIR . '/export2word/' . 'vendor/autoload.php' );
+		include_once( E2w_export2word::plugin_dir_path() . 'vendor/autoload.php' );
 		$this->PhpWord = new \PhpOffice\PhpWord\PhpWord();
 		
 		// create document

@@ -121,9 +121,9 @@ Class E2w_e2w_template_edit {
 	
 		if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 			if ( in_array( $post->post_type, $this->object_types ) ) {     
-				wp_enqueue_style( 'e2w_template_edit', WP_PLUGIN_URL . '/export2word/css/e2w_template_edit.min.css', false );
-				wp_enqueue_script( 'e2w_template_edit', WP_PLUGIN_URL . '/export2word/js/e2w_template_edit.min.js', array('jquery'));
-				wp_enqueue_script( 'cmb2-conditionals', WP_PLUGIN_URL . '/export2word/js/cmb2-conditionals.min.js', array( 'jquery', 'cmb2-scripts' ));
+				wp_enqueue_style( 'e2w_template_edit', E2w_export2word::plugin_dir_url() .'/css/e2w_template_edit.min.css', false );
+				wp_enqueue_script( 'e2w_template_edit', E2w_export2word::plugin_dir_url() .'/js/e2w_template_edit.min.js', array('jquery'));
+				wp_enqueue_script( 'cmb2-conditionals', E2w_export2word::plugin_dir_url() .'/js/cmb2-conditionals.min.js', array( 'jquery', 'cmb2-scripts' ));
 			}
 		}
 		

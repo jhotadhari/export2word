@@ -57,6 +57,9 @@ This Plugin is still in early development. Reality might be in movement.
 
 == Changelog ==
 
+0.0.2
+
+
 0.0.1
 First basic running version
 

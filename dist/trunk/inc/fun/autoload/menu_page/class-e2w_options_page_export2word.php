@@ -125,8 +125,8 @@ class E2w_options_page_export2word {
 	 * @since 0.0.1
 	 */	
 	public function enqueue_style_script( $post_id, $cmb ) {
-		wp_enqueue_style( 'e2w_options_page_export2word', WP_PLUGIN_URL . '/export2word/css/e2w_options_page_export2word.min.css', false );
-		wp_enqueue_script('e2w_options_page_export2word', WP_PLUGIN_URL . '/export2word/js/e2w_options_page_export2word.min.js', array( 'jquery' ));
+		wp_enqueue_style( 'e2w_options_page_export2word', E2w_export2word::plugin_dir_url() .'/css/e2w_options_page_export2word.min.css', false );
+		wp_enqueue_script('e2w_options_page_export2word', E2w_export2word::plugin_dir_url() .'/js/e2w_options_page_export2word.min.js', array( 'jquery' ));
 	}	
 
 	/**
@@ -180,7 +180,7 @@ class E2w_options_page_export2word {
 	public function admin_page_display() {
 		
 		// get active tab
-		$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : array_keys( $this->metabox_ids )[0];
+		$active_tab = isset( $_GET[ 'tab' ] ) && gettype( $_GET[ 'tab' ] ) === 'string' ? $_GET[ 'tab' ] : array_keys( $this->metabox_ids )[0];
 		
 		// wrappers
 		$wrapper_start = '';
@@ -196,87 +196,90 @@ class E2w_options_page_export2word {
 		
 		echo $wrapper_start;
 		
-		if ( $active_tab == 'templates' ) {
+		switch( esc_attr( $active_tab ) ) {
+			case 'templates':
 			
-			// new template button
-			echo '<br>';
-			$new_template_link = admin_url('post-new.php?post_type=e2w_template');
-			echo '<a href="' . $new_template_link . '" class="page-title-action">' . __( 'Create a new Template', 'export2word' ) . '</a>';
-			echo '<br>';
-			
-			$this->templates_obj->prepare_items();
-			
-			$this->templates_obj->views();
-			
-			// search box
-			echo '<form method="post">';
-				echo '<input type="hidden" name="page" value="' . $this->key  . '" />';
-				$this->templates_obj->search_box('Search', 'ID');
-			echo '</form>';
-			
-			?>
-			<div id="poststuff">
-				<div id="post-body" class="metabox-holder columns-1">
-					<div id="post-body-content">
-						<div class="meta-box-sortables ui-sortable">
-							<form method="post">
-								<?php
-								
-								$this->templates_obj->display(); ?>
-							</form>
+				// new template button
+				echo '<br>';
+				$new_template_link = admin_url('post-new.php?post_type=e2w_template');
+				echo '<a href="' . $new_template_link . '" class="page-title-action">' . __( 'Create a new Template', 'export2word' ) . '</a>';
+				echo '<br>';
+				
+				$this->templates_obj->prepare_items();
+				
+				$this->templates_obj->views();
+				
+				// search box
+				echo '<form method="post">';
+					echo '<input type="hidden" name="page" value="' . $this->key  . '" />';
+					$this->templates_obj->search_box('Search', 'ID');
+				echo '</form>';
+				
+				?>
+				<div id="poststuff">
+					<div id="post-body" class="metabox-holder columns-1">
+						<div id="post-body-content">
+							<div class="meta-box-sortables ui-sortable">
+								<form method="post">
+									<?php
+									
+									$this->templates_obj->display(); ?>
+								</form>
+							</div>
 						</div>
 					</div>
+					<br class="clear">
 				</div>
-				<br class="clear">
-			</div>
-			<?php	
+				<?php	
+				break;
 		
-		} elseif ( $active_tab == 'documents' ) {
-			
-			// new document button
-			echo '<br>';
-			$new_document_link = admin_url('post-new.php?post_type=e2w_document');
-			echo '<a href="' . $new_document_link . '" class="page-title-action">' . __( 'Create a new Document', 'export2word' ) . '</a>';
-			echo '<br>';
-			
-			$this->documents_obj->prepare_items();
-			
-			$this->documents_obj->views();
-			
-			// search box
-			echo '<form method="post">';
-				echo '<input type="hidden" name="page" value="' . $this->key  . '" />';
-				$this->documents_obj->search_box('Search', 'ID');
-			echo '</form>';
-			
-			?>
-			<div id="poststuff">
-				<div id="post-body" class="metabox-holder columns-1">
-					<div id="post-body-content">
-						<div class="meta-box-sortables ui-sortable">
-							<form method="post">
-								<?php
-								
-								$this->documents_obj->display(); ?>
-							</form>
+		case 'documents':
+				
+				// new document button
+				echo '<br>';
+				$new_document_link = admin_url('post-new.php?post_type=e2w_document');
+				echo '<a href="' . $new_document_link . '" class="page-title-action">' . __( 'Create a new Document', 'export2word' ) . '</a>';
+				echo '<br>';
+				
+				$this->documents_obj->prepare_items();
+				
+				$this->documents_obj->views();
+				
+				// search box
+				echo '<form method="post">';
+					echo '<input type="hidden" name="page" value="' . $this->key  . '" />';
+					$this->documents_obj->search_box('Search', 'ID');
+				echo '</form>';
+				
+				?>
+				<div id="poststuff">
+					<div id="post-body" class="metabox-holder columns-1">
+						<div id="post-body-content">
+							<div class="meta-box-sortables ui-sortable">
+								<form method="post">
+									<?php
+									
+									$this->documents_obj->display(); ?>
+								</form>
+							</div>
 						</div>
 					</div>
+					<br class="clear">
 				</div>
-				<br class="clear">
-			</div>
-			<?php			
+				<?php
+				break;
 			
-		} else {
-		// form
-		cmb2_metabox_form(
-			$this->metabox_ids[$active_tab]['metabox_id'],
-			$this->key,
-			isset( $this->metabox_ids[$active_tab]['metabox_form_args'] ) ? $this->metabox_ids[$active_tab]['metabox_form_args'] : array()
-		);
+			default:
+				// form
+				cmb2_metabox_form(
+					$this->metabox_ids[$active_tab]['metabox_id'],
+					$this->key,
+					isset( $this->metabox_ids[$active_tab]['metabox_form_args'] ) ? $this->metabox_ids[$active_tab]['metabox_form_args'] : array()
+				);
 		}
-	
+		
 		echo $wrapper_end;
-
+		
 	}
 	
 	public function add_options_page_metabox__settings() {
@@ -298,6 +301,13 @@ class E2w_options_page_export2word {
 			),
 		) );
 		
+		$cmb->add_field( array(
+			'desc' => __( 'settings coming soon ...', 'export2word' ),
+			'id'   => 'settings_test_title',
+			'type' => 'title',
+		) );
+		
+		/*
 		// Set our CMB2 fields
 		$cmb->add_field( array(
 			'name' => __( 'Test Text', 'export2word' ),
@@ -314,7 +324,8 @@ class E2w_options_page_export2word {
 			'type'    => 'colorpicker',
 			'default' => '#bada55',
 		) );
-	
+		*/
+		
 	}
 	
 	public function add_options_page_metabox__documents() {
@@ -386,7 +397,7 @@ class E2w_options_page_export2word {
 		// is form submission?
 		if ( empty( $_POST ) || ! isset( $_POST['submit-cmb'], $_POST['object_id'] ) ) return false;
 		// is export2word form submission?
-		if ( ! $_POST['object_id'] == $this->key ) return false;
+		if ( gettype( $_POST['object_id'] ) != 'string' || $_POST['object_id'] != $this->key ) return false;
 		
 		// get nonce, metabox, tab_name
 		$nonce = array_keys( $this->preg_grep_keys('/nonce_CMB2php\w+/', $_POST ) )[0];
@@ -396,7 +407,7 @@ class E2w_options_page_export2word {
 		
 		// Check security nonce
 		if ( ! isset( $_POST[ $cmb->nonce() ] ) || ! wp_verify_nonce( $_POST[ $cmb->nonce() ], $cmb->nonce() ) ) {
-			new Remp_Admin_Notice( array('Something went wrong.','Nonce verification failed.'), true );
+			new E2w_Admin_Notice( array('Something went wrong.','Nonce verification failed.'), true );
 			return;
 		}
 		

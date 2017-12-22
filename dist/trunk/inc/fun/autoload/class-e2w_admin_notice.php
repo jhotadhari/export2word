@@ -5,7 +5,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-Class E2w_admin_notice {
+Class E2w_Admin_Notice {
 
 	protected $admin_notice = '';
 	protected $to_log = false;
