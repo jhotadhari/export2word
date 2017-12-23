@@ -28,6 +28,7 @@ Class E2w_e2w_document_edit {
 		add_action( 'cmb2_admin_init', array( $this, 'editscreen_add_submit_metabox' ) );
 		add_action( 'cmb2_admin_init', array( $this, 'editscreen_add_document_metabox' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'editscreen_enqueue_style_script' ), 10, 1 );
+		add_action( 'edit_form_top', array( $this, 'top_form_edit' ) );
 	}
 	
 	public function editscreen_remove_submit_metabox() {
@@ -275,6 +276,22 @@ Class E2w_e2w_document_edit {
 		}
 		
 	}
+	
+	public function top_form_edit( $post ) {
+		if ( 'e2w_document' != $post->post_type )
+			return;
+		
+		$args = array(
+			'tab'   => 'documents',
+		);	    
+		
+		echo sprintf( '<a class="%s" href="%s">%s</a>',
+			esc_attr( 'button button-secondary button-medium' ),
+			esc_url( add_query_arg( $args, menu_page_url( 'export2word', false ) ) ),
+			esc_attr__( 'Back to Documents List', 'export2word' ) 
+		);
+		
+	}	
 	
 }
 

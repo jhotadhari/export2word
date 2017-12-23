@@ -39,4 +39,5 @@ function initConfigs(grunt, folderPath) {
         config[fileName] = fileData;
     });
     grunt.initConfig(config);
+    
 }

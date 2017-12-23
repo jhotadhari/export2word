@@ -7,14 +7,19 @@ module.exports = function(grunt){
 		var pkg = grunt.file.readJSON("package.json");
 		
 		global['dest_path'] = dest_path;
-		
-		grunt.task.run([
+		               
+		var tasks = [
 			// clean up dest folder
 			'clean',
-			
-			//	composer
-			'composer:update',
-			
+		];
+		
+		if ( grunt.option('composer') != false ) {
+			tasks = tasks.concat([
+				'composer:update',
+			]);
+		}
+		
+		tasks = tasks.concat(		[
 			// readme
 			'concat:readme',
 			
@@ -34,8 +39,9 @@ module.exports = function(grunt){
 			// potomo
 			'pot',
 			'_potomo',
-			
-		]);
+		] );
+		
+		grunt.task.run(tasks);
 		
 	});
 };
