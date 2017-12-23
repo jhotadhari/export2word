@@ -96,7 +96,8 @@ module.exports = {
 		],
 		tasks: [
 			'jshint',
-			'uglify:main',
+			'uglify:ugyly',
+			'uglify:beauty',
 			'local_sync:<%= local_sync.wp_install %>:<%= local_sync.version %>'
 		]
 	},

@@ -41,8 +41,9 @@ Class E2w_e2w_template_edit {
 		$prefix = 'e2w_tmpl_';
 		
 		// Initiate the metabox
-		$cmb = new_cmb2_box( array(
-			'id'			=> $prefix . 'submit',
+		$submit = new_cmb2_box( array(
+			'id'			=> $prefix . 'submitpost',
+			'classes'		=> 'submitbox',
 			'title'			=> __( 'Save Template', 'export2word' ),
 			'object_types'	=> $this->object_types,
 			'context'		=> 'side',
@@ -50,16 +51,15 @@ Class E2w_e2w_template_edit {
 			'show_names'	=> true,
 		) );
 		
-		$cmb->add_field( array(
-			// 'name' => __('submit', 'export2word'),
-			'id'   => $prefix . 'submit',
+		$submit->add_field( array(
+			'id'   => $prefix . 'submit_btn',
 			'type'    => 'submit',
 			'attributes' => array(
-				'button_type' => 'primary button-large',
-				'button_wrap' => false,
-				'button_text' => 'Save Template',
-			)
-		) );		
+				'btn_type' => 'primary button-large',
+				'btn_text' => __( 'Save Template', 'export2word' ),
+			),
+		) );
+		
 	}
 	
 	public function editscreen_add_template_metabox() {

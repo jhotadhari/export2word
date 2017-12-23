@@ -25,7 +25,8 @@ module.exports = function(grunt){
 				
 			// js
 			'jshint',
-			'uglify:main',
+			'uglify:ugyly',
+			'uglify:beauty',
 			
 			// style
 			'sass:main',

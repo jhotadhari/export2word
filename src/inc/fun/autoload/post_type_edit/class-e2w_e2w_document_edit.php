@@ -42,8 +42,9 @@ Class E2w_e2w_document_edit {
 		
 		// Initiate the metabox
 		$submit = new_cmb2_box( array(
-			'id'			=> $prefix . 'submit',
-			'title'			=> __( 'Save and Export', 'export2word' ),
+			'id'			=> $prefix . 'submitpost',
+			'classes'		=> 'submitbox',
+			'title'			=> __( 'Save Template', 'export2word' ),
 			'object_types'	=> $this->object_types,
 			'context'		=> 'side',
 			'priority'		=> 'default',
@@ -51,7 +52,6 @@ Class E2w_e2w_document_edit {
 		) );
 		
 		$submit->add_field( array(
-			// 'name'    => __('save/export', 'export2word'),
 			'id'      => $prefix . 'save_export',
 			'type'    => 'radio_inline',
 			'options' => array(
@@ -59,18 +59,17 @@ Class E2w_e2w_document_edit {
 				'save_export'   => __( 'Save and Export to docx', 'export2word' ),
 			),
 			'default' => 'save',
-		) );	
+		) );
 		
 		$submit->add_field( array(
-			// 'name' => __('submit', 'export2word'),
 			'id'   => $prefix . 'submit_btn',
 			'type'    => 'submit',
 			'attributes' => array(
-				'button_type' => 'primary button-large',
-				'button_wrap' => false,
-				'button_text' => 'Save',
-			)
-		) );		
+				'btn_type' => 'primary button-large',
+				'btn_text' => __( 'Save Document', 'export2word' ),
+			),
+		) );
+		
 	}
 	
 	public function editscreen_add_document_metabox() {

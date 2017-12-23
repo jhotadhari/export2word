@@ -24,30 +24,49 @@ function cmb2_init_field_subimt() {
 		
 		public function render( $args = array() ) {
 			
-			// wrapper parameters
-			$button_wrapper_id = array_key_exists('button_wrapper_id', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_wrapper_id'] : esc_attr( 'publishing-action' );
-			// hidden input parameters
-			$button_hidden_name_id = array_key_exists('button_hidden_name_id', $this->field->args( 'attributes' ) ) ? $this->field->args( 'attributes' )['button_hidden_name_id'] : esc_attr( 'original_publish' );
-			$button_hidden_value = array_key_exists('button_hidden_value', $this->field->args( 'attributes' ) ) ? $this->field->args( 'attributes' )['button_hidden_value'] : isset( $_GET['action'] ) && gettype( $_GET['action'] ) === 'string' && $_GET['action'] === 'edit' ? 'Update' : 'Publish';
+			$field = $this->field;
+			// $field_attributes = $field->attributes();
 			
-			// submit button parameters
-			$button_text = array_key_exists('button_text', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_text'] : null;
-			$button_type = array_key_exists('button_type', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_type'] : 'primary';
-			$button_name = array_key_exists('button_name', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_name'] : 'submit';
-			$button_wrap = array_key_exists('button_wrap', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_wrap'] : true;
-			$button_other_attributes = array_key_exists('button_other_attributes', $this->field->args( 'attributes' ) ) ?  $this->field->args( 'attributes' )['button_other_attributes'] : null;
+			$action = isset( $_GET['action'] ) && gettype( $_GET['action'] ) === 'string' && $_GET['action'] === 'edit' ? 'edit' : 'new';
+			
+			// parse params
+			$params = wp_parse_args( $field->attributes(), array(
+				// wrapper parameters
+				'wrapper_id' => 'publishing-action',
+				// hidden input parameters
+				'hidden_name_id' => 'original_publish',
+				'hidden_value' => $action === 'edit' ? esc_attr( 'Update' ) : esc_attr( 'Publish' ),
+				// submit button parameters
+				'btn_type' => 'primary',
+				'btn_text' => $action === 'edit' ? esc_attr__( 'Save', 'export2word' ) : esc_attr__( 'Update', 'export2word' ),
+				'btn_wrap' => false,
+				'btn_name' => $action === 'edit' ? esc_attr( 'save' ) : esc_attr( 'publish' ),
+			) );
+			// submit button other attributes
+			$params['btn_other_attributes'] = wp_parse_args( $field->attributes()['btn_other_attributes'], array(
+				'id' => esc_attr( 'publish' ),
+				'accesskey' => esc_attr( 'p' ),
+			) );
 			
 			ob_start();
 			
-				echo '<div id="' . $button_wrapper_id . '">';
+				echo sprintf( '<div id="%s">', esc_attr( $params['wrapper_id'] ) );				
 					echo '<span class="spinner"></span>';
-					echo '<input name="' . esc_attr( $button_hidden_name_id ) . '" id="' . esc_attr( $button_hidden_name_id ) . '" value="' . esc_attr( $button_hidden_value ) . '" type="hidden">';
+					
+					echo sprintf(
+						'<input name="%s" id="%s" value="%s" type="hidden">',
+						esc_attr( $params['hidden_name_id'] ),
+						esc_attr( $params['hidden_name_id'] ),
+						esc_attr( $params['hidden_value'] ),
+						esc_attr( 'hidden' )
+					);
+					
 					echo get_submit_button(
-						esc_attr( $button_text ),	// $text				null
-						$button_type,				// $type				'primary'
-						esc_attr( $button_name ),	// $name				'submit'
-						$button_wrap,				// $wrap				true
-						$button_other_attributes	// $other_attributes	null	array
+						esc_attr( $params['btn_text'] ),	// $text				null
+						esc_attr( $params['btn_type'] ),	// $type				'primary'
+						esc_attr( $params['btn_name'] ),	// $name				'submit'
+						$params['btn_wrap'],				// $wrap				true
+						$params['btn_other_attributes']	// $other_attributes	null	array
 					);
 				echo '</div>';
 				
