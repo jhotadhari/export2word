@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: export2word 0.0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-23 07:16+0530\n"
+"POT-Creation-Date: 2017-12-23 10:07+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_submit.php:41
+msgid "Save"
+msgstr ""
+
+#: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_submit.php:41
+msgid "Update"
+msgstr ""
 
 #: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_tree_properties.php:72
 msgid "Selected Section"
@@ -104,8 +112,10 @@ msgstr ""
 msgid "Settings updated."
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:46
-msgid "Save and Export"
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:47
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:47
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:59
+msgid "Save Template"
 msgstr ""
 
 #: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:58
@@ -116,146 +126,146 @@ msgstr ""
 msgid "Save and Export to docx"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:83
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:69
+msgid "Save Document"
+msgstr ""
+
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:82
 msgid "Document structure"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:93
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:92
 msgid "Right click on a Section to edit."
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:107
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:106
 msgid "Type Settings"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:113
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:112
 msgid "Section Type"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:116
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:115
 msgid "bla bla ???"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:120
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:119
 msgid "Query"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:122
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:121
 msgid "Query the database for post, term or users."
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:123
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:122
 msgid "The child sections represent the loop and recieve the queried object"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:124
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:132
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:123
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:131
 msgid ""
 "Will recieve the queried object, if used as a child of a \"Query Section\"."
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:129
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:128
 msgid "Singular"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:131
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:130
 msgid "For a single post, term or user (or template withut queried object)."
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:137
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:136
 msgid "Table of content"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:138
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:137
 msgid "Insert a table of content."
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:145
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:144
 msgid "Query Type"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:152
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:151
 msgid "Post Query"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:153
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:152
 msgid "Query the database for posts."
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:156
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:155
 msgid "Term Query"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:157
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:156
 msgid "Query the database for terms."
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:160
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:159
 msgid "User Query"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:161
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:160
 msgid "Query the database for users."
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:188
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:187
 msgid "Query Arguments"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:195
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:194
 msgid "The Query arguments as json formatted array."
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:199
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:198
 msgid "Content Settings"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:205
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:204
 msgid "Template ID"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:212
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:211
 msgid "Style Settings"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:218
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:217
 msgid "Inherit Style"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:223
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:222
 msgid "Yes"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:226
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:225
 msgid "No"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:232
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:231
 msgid "Page break"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:239
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:238
 msgid "New page"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:242
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:241
 msgid "Continue same page"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:248
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:247
 msgid "Page Orentation"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:255
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:254
 msgid "Portrait"
 msgstr ""
 
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:258
+#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_document_edit.php:257
 msgid "Landscape"
-msgstr ""
-
-#: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:46
-msgid "Save Template"
 msgstr ""
 
 #: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:72

@@ -40,44 +40,72 @@ class E2w_List_Table_Documents extends WP_List_Table {
 	}
 	
 	function column_title( $item ) {
-		$document_id = $item['ID'];
-		$title = $item['title'];                                                                                            
-		
+		$page = wp_unslash( $_REQUEST['page'] ); // WPCS: Input var ok.
 		$nonce = wp_create_nonce( 'e2w_nonce_document' );
-		
 		$view = ( !empty($_REQUEST['viewvar']) && gettype( $_REQUEST['viewvar'] ) === 'string' ? esc_attr( $_REQUEST['viewvar'] ) : 'all');
 		
-		$actions = array(
-			'edit' 		=> sprintf( '<a href="%s">%s</a>', esc_url( get_edit_post_link( $document_id ) ), esc_attr__( 'Edit', 'export2word' ) ),
-		);
+		$actions = array();
 		
-		if ( $view === 'trash' ) {
-			
-			$actions['delete'] = sprintf(
-				'<a href="?page=%s&action=%s&document=%s&_wpnonce=%s&viewvar=%s">%s</a>',
-				esc_attr( $_REQUEST['page'] ),
-				esc_attr( 'delete' ), 
-				absint( $item['ID'] ), 
-				$nonce,
-				$view,
-				esc_attr__( 'Delete', 'export2word' )
-			);
-
-		} else {
-			
-			$actions['trash'] = sprintf(
-				'<a href="?page=%s&action=%s&document=%s&_wpnonce=%s&viewvar=%s">%s</a>',
-				esc_attr( $_REQUEST['page'] ),
-				esc_attr( 'trash' ), 
-				absint( $item['ID'] ), 
-				$nonce,
-				$view,
-				esc_attr__( 'Trash', 'export2word' )
-			);
-			
+		switch( $view ) {
+			case 'all':
+				
+				$actions['edit'] = sprintf( '<a href="%s">%s</a>', esc_url( get_edit_post_link( $item['ID'] ) ), esc_attr__( 'Edit', 'export2word' ) );
+					
+				$trash_query_args = array(
+					'page'   => $page,
+					'tab'   => 'documents',
+					'action' => 'trash',
+					'viewvar' => $view,
+					'_wpnonce' => $nonce,
+					'e2w_document'  => absint( $item['ID'] ),
+				);					
+				
+				$actions['trash'] = 
+					sprintf(
+						'<a href="%1$s">%2$s</a>',
+						esc_url( add_query_arg( $trash_query_args, 'admin.php' ) ),
+						_x( 'Trash', 'List table row action', 'export2word' )
+					);				
+				breaK;
+				
+			case 'trash':
+				
+				$restore_query_args = array(
+					'page'   => $page,
+					'tab'   => 'documents',
+					'action' => 'restore',
+					'viewvar' => $view,
+					'_wpnonce' => $nonce,
+					'e2w_document'  => absint( $item['ID'] ),
+				);
+				
+				$actions['restore'] =
+					sprintf(
+						'<a href="%1$s">%2$s</a>',
+						esc_url( add_query_arg( $restore_query_args, 'admin.php' ) ),
+						_x( 'Restore', 'List table row action', 'export2word' )
+					);
+									
+				$delete_query_args = array(
+					'page'   => $page,
+					'tab'   => 'documents',
+					'action' => 'delete',
+					'viewvar' => $view,
+					'_wpnonce' => $nonce,
+					'e2w_document'  => absint( $item['ID'] ),
+				);				
+				
+				$actions['delete'] =
+					sprintf(
+						'<a href="%1$s">%2$s</a>',
+						esc_url( add_query_arg( $delete_query_args, 'admin.php' ) ),
+						_x( 'Delete Permanently', 'List table row action', 'export2word' )
+					);
+					
+				break;
 		}
 		
-		return $title . $this->row_actions( $actions );
+		return $item['title'] . $this->row_actions( $actions );
 	}
 	
 		
@@ -100,7 +128,7 @@ class E2w_List_Table_Documents extends WP_List_Table {
 		$columns = array(
 			'cb'      => '<input type="checkbox" />',
 			'title'   => __( 'Title', 'export2word' ),
-			// 'egal'    => __( 'Egal', 'export2word' ),
+			'debug'    => __( 'Debug', 'export2word' ),
 		);
 		
 		return $columns;
@@ -115,13 +143,25 @@ class E2w_List_Table_Documents extends WP_List_Table {
 	}
 	
 	public function get_bulk_actions() {
+		$view = ( !empty($_REQUEST['viewvar']) && gettype( $_REQUEST['viewvar'] ) === 'string' ? esc_attr( $_REQUEST['viewvar'] ) : 'all');
+				
 		$actions = array();
-		$actions['bulk-trash'] = __( 'Trash', 'export2word' );
-		$actions['bulk-delete'] = __( 'Delete', 'export2word' );
+		
+		switch( $view ) {
+			case 'all':
+				$actions['bulk-trash'] = __( 'Trash', 'export2word' );
+				break;
+			case 'trash':
+				$actions['bulk-delete'] = __( 'Delete Permanently', 'export2word' );
+				$actions['bulk-restore'] = __( 'Restore', 'export2word' );
+				break;
+		}
+		
+		
 		return $actions;
 	}
 	
-	protected function get_documents( $per_page = null, $current_page = null, $s = null ){
+	protected function get_items( $per_page = null, $current_page = null, $s = null ){
 		
 		$orderby = !empty( $_REQUEST['orderby'] ) && gettype( $_REQUEST['orderby'] ) === 'string' ? esc_attr( $_REQUEST['orderby'] ) : 'ID';
 		$order = !empty( $_REQUEST['order'] ) && gettype( $_REQUEST['order'] ) === 'string' ? esc_attr( $_REQUEST['order'] ) : 'DESC';
@@ -140,7 +180,7 @@ class E2w_List_Table_Documents extends WP_List_Table {
 			$args['posts_per_page'] = $per_page;
 			$args['offset'] = ( $current_page - 1 ) * $per_page;
 		}
-	
+		
 		if ( !empty( $_REQUEST['viewvar'] && gettype( $_REQUEST['viewvar'] ) === 'string' ) ){
 			switch ( esc_attr( $_REQUEST['viewvar'] ) ){
 				case 'trash':
@@ -150,14 +190,14 @@ class E2w_List_Table_Documents extends WP_List_Table {
 		}
 		
 		// The Query
-		$documents_query = new WP_Query( $args );
-		$documents = array();
+		$query = new WP_Query( $args );
+		$items = array();
 		
 		// The Loop
-		while ( $documents_query->have_posts() ) {
-			$documents_query->the_post();
+		while ( $query->have_posts() ) {
+			$query->the_post();
 			
-			$documents[get_the_id()] = array(
+			$items[get_the_id()] = array(
 				'ID' => get_the_id(),
 				'title' => get_the_title(),
 			);
@@ -166,7 +206,7 @@ class E2w_List_Table_Documents extends WP_List_Table {
 		// Restore original Post Data 
 		wp_reset_postdata();
 		
-		return $documents;
+		return $items;
 		
 	}
 	
@@ -180,25 +220,16 @@ class E2w_List_Table_Documents extends WP_List_Table {
 		$current_page = $this->get_pagenum();
 		$s = isset( $_REQUEST['s'] ) && gettype( $_REQUEST['s'] ) === 'string' ? esc_attr( $_REQUEST['s'] ) : null;
 		
-		$documents = $this->get_documents( $per_page, $current_page, $s );	
+		$items = $this->get_items( $per_page, $current_page, $s );	
 		
-		$documents_arr= array();
-		if ( is_array($documents) ){
-			foreach ( $documents as $document ){
-				$document_id = $document['ID'];
-				$documents_arr[$document_id]['ID'] = $document_id;
-				$documents_arr[$document_id]['title'] = $document['title'];
-			}
-		}
-		
-		$total_items = count($documents_arr);
+		$total_items = count($this->get_items( null, null, $s ));
 		
 		$this->set_pagination_args( array(
 			'total_items' => $total_items,
 			'per_page'    => $per_page
 		) );
 		
-		$this->items = $documents_arr;
+		$this->items = $items;
 	}
 	
 	public function process_bulk_action() {
@@ -225,7 +256,7 @@ class E2w_List_Table_Documents extends WP_List_Table {
 			wp_die( 'Nope! Security check failed!' );
 		} else {
 			
-			$post_id = is_numeric( $_GET['document'] ) ? absint( $_GET['document'] ) : null;
+			$post_id = is_numeric( $_GET['e2w_document'] ) ? absint( $_GET['e2w_document'] ) : null;
 			if ( $post_id === null )
 				return;
 			
@@ -236,6 +267,9 @@ class E2w_List_Table_Documents extends WP_List_Table {
 				case 'delete':
 						wp_delete_post( $post_id );
 					break;
+				case 'restore':
+						wp_untrash_post( $post_id );
+					break;					
 				default:
 					// silence ...
 			}
@@ -279,6 +313,11 @@ class E2w_List_Table_Documents extends WP_List_Table {
 								wp_delete_post( $document_id );
 							}
 							break;
+						case 'bulk-restore':
+							foreach ( $template_ids as $template_id ) {
+								wp_untrash_post( $template_id );
+							}
+							break;							
 						default:
 							// silence ...
 					}

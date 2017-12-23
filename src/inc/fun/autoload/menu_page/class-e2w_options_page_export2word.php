@@ -54,6 +54,9 @@ class E2w_options_page_export2word {
 	 * @var string
 	 */
 	protected $title = '';
+	
+	// active_tab string
+	protected $active_tab;
 
 	/**
 	 * Options Pages hook
@@ -69,11 +72,9 @@ class E2w_options_page_export2word {
 	protected static $instance = null;
 	
 	
-	// template WP_List_Table object
-	public $templates_obj;	
-	// documents WP_List_Table object
-	public $documents_obj;	
-
+	// WP_List_Table object
+	public $list_obj;
+	
 	/**
 	 * Returns the running object
 	 *
@@ -96,12 +97,18 @@ class E2w_options_page_export2word {
 		// Set our title
 		$this->title = __( 'Export2Word', 'export2word' );
 		
+
 		foreach( $this->tabs as $key => $val ) {
 			$this->metabox_ids[$key] = array( 'metabox_id'	=>	$this->key . '_' . $key );
 			foreach( $val as $k => $v ) {
 				$this->metabox_ids[$key][$k] = $v;
 			}
-		}		
+		}	
+		
+		// get active tab
+		$this->active_tab = isset( $_GET[ 'tab' ] ) && gettype( $_GET[ 'tab' ] ) === 'string' ? esc_attr( $_GET[ 'tab' ] ) : array_keys( $this->metabox_ids )[0];
+				
+		
 	}
 
 	/**
@@ -111,6 +118,7 @@ class E2w_options_page_export2word {
 	public function hooks() {
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'add_options_page' ) );
+		add_filter( 'set-screen-option', array( $this, 'save_screen_option' ), 10, 3);
 		
 		foreach( $this->metabox_ids as $key => $val ) {
 			add_action( 'cmb2_admin_init', array( $this, 'add_options_page_metabox' . '__' . $key ) );
@@ -143,6 +151,7 @@ class E2w_options_page_export2word {
 	 */
 	public function add_options_page() {
 		
+		
 		$this->options_page = add_submenu_page( 
 			'tools.php', 
 			$this->title, 
@@ -152,25 +161,56 @@ class E2w_options_page_export2word {
 			array( $this, 'admin_page_display' )
 		);
 		
-		add_action( "load-$this->options_page", array( $this, 'screen_option' ) );
+		add_action( "load-$this->options_page", array( $this, 'screen_option' ), 10 );
+		add_action( "load-$this->options_page", array( $this, 'init_list' ), 10 );		
 		
 		// Include CMB CSS in the head to avoid FOUC
 		add_action( "admin_print_styles-{$this->options_page}", array( 'CMB2_hookup', 'enqueue_cmb_css' ) );
 	}
+
+
 	
 	public function screen_option() {
 	
 		$option = 'per_page';
-		$args   = array(
-			'label'   => 'Templates',
-			'default' => 5,
-			'option'  => 'templates_per_page'
-		);
+		
+		switch( $this->active_tab ) {
+			case 'templates':		
+				$args   = array(
+					'label'   => __( 'Templates per page', 'export2word' ),
+					'default' => 5,
+					'option'  => 'templates_per_page'
+				);
+				break;
+			case 'documents':			
+				$args   = array(
+					'label'   => __( 'Documents per page', 'export2word' ),
+					'default' => 5,
+					'option'  => 'documents_per_page'
+				);
+				break;
+		}
 	
 		add_screen_option( $option, $args );
+	}
 	
-		$this->templates_obj = new E2w_List_Table_Templates();
-		$this->documents_obj = new E2w_List_Table_Documents();
+	public function save_screen_option( $status, $option, $value ) {
+		if ( 'templates_per_page' == $option ) return $value;
+		if ( 'documents_per_page' == $option ) return $value;
+		return $status;
+	}	
+	
+	public function init_list() {
+		
+		switch( $this->active_tab ) {
+			case 'templates':		
+				$this->list_obj = new E2w_List_Table_Templates();		
+				break;
+			case 'documents':			
+				$this->list_obj = new E2w_List_Table_Documents();
+				break;
+		}		
+		
 	}
 
 	/**
@@ -179,9 +219,6 @@ class E2w_options_page_export2word {
 	 */
 	public function admin_page_display() {
 		
-		// get active tab
-		$active_tab = isset( $_GET[ 'tab' ] ) && gettype( $_GET[ 'tab' ] ) === 'string' ? $_GET[ 'tab' ] : array_keys( $this->metabox_ids )[0];
-		
 		// wrappers
 		$wrapper_start = '';
 		$wrapper_start .= '<div class="wrap cmb2-options-page ' . $this->key . '">';
@@ -189,14 +226,16 @@ class E2w_options_page_export2word {
 			// navigation tabs
 			$wrapper_start .= '<h2 class="nav-tab-wrapper">';
 				foreach( $this->metabox_ids as $key => $val) {
-					$wrapper_start .= '<a href="?page=export2word&tab=' . $key . '" class="nav-tab' . ($key === $active_tab ? ' nav-tab-active' : '') . '">' . __( $val[$key], 'export2word') . '</a>';
+					$wrapper_start .= '<a href="?page=export2word&tab=' . $key . '" class="nav-tab' . ($key === $this->active_tab ? ' nav-tab-active' : '') . '">' . __( $val[$key], 'export2word') . '</a>';
 				}
 			$wrapper_start .= '</h2>';
 		$wrapper_end = '</div>';
 		
 		echo $wrapper_start;
 		
-		switch( esc_attr( $active_tab ) ) {
+		
+		
+		switch(  $this->active_tab ) {
 			case 'templates':
 			
 				// new template button
@@ -205,14 +244,14 @@ class E2w_options_page_export2word {
 				echo '<a href="' . $new_template_link . '" class="page-title-action">' . __( 'Create a new Template', 'export2word' ) . '</a>';
 				echo '<br>';
 				
-				$this->templates_obj->prepare_items();
+				$this->list_obj->prepare_items();
 				
-				$this->templates_obj->views();
+				$this->list_obj->views();
 				
 				// search box
 				echo '<form method="post">';
 					echo '<input type="hidden" name="page" value="' . $this->key  . '" />';
-					$this->templates_obj->search_box('Search', 'ID');
+					$this->list_obj->search_box('Search', 'ID');
 				echo '</form>';
 				
 				?>
@@ -223,7 +262,7 @@ class E2w_options_page_export2word {
 								<form method="post">
 									<?php
 									
-									$this->templates_obj->display(); ?>
+									$this->list_obj->display(); ?>
 								</form>
 							</div>
 						</div>
@@ -233,7 +272,7 @@ class E2w_options_page_export2word {
 				<?php	
 				break;
 		
-		case 'documents':
+			case 'documents':
 				
 				// new document button
 				echo '<br>';
@@ -241,14 +280,14 @@ class E2w_options_page_export2word {
 				echo '<a href="' . $new_document_link . '" class="page-title-action">' . __( 'Create a new Document', 'export2word' ) . '</a>';
 				echo '<br>';
 				
-				$this->documents_obj->prepare_items();
+				$this->list_obj->prepare_items();
 				
-				$this->documents_obj->views();
+				$this->list_obj->views();
 				
 				// search box
 				echo '<form method="post">';
 					echo '<input type="hidden" name="page" value="' . $this->key  . '" />';
-					$this->documents_obj->search_box('Search', 'ID');
+					$this->list_obj->search_box('Search', 'ID');
 				echo '</form>';
 				
 				?>
@@ -259,7 +298,7 @@ class E2w_options_page_export2word {
 								<form method="post">
 									<?php
 									
-									$this->documents_obj->display(); ?>
+									$this->list_obj->display(); ?>
 								</form>
 							</div>
 						</div>
@@ -272,9 +311,9 @@ class E2w_options_page_export2word {
 			default:
 				// form
 				cmb2_metabox_form(
-					$this->metabox_ids[$active_tab]['metabox_id'],
+					$this->metabox_ids[$this->active_tab]['metabox_id'],
 					$this->key,
-					isset( $this->metabox_ids[$active_tab]['metabox_form_args'] ) ? $this->metabox_ids[$active_tab]['metabox_form_args'] : array()
+					isset( $this->metabox_ids[$this->active_tab]['metabox_form_args'] ) ? $this->metabox_ids[$this->active_tab]['metabox_form_args'] : array()
 				);
 		}
 		
