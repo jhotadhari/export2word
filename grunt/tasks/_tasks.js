@@ -7,6 +7,8 @@ module.exports = function(grunt){
 		var pkg = grunt.file.readJSON("package.json");
 		
 		global['dest_path'] = dest_path;
+		
+		console.log('destination path: ' + dest_path);
 		               
 		var tasks = [
 			// clean up dest folder
