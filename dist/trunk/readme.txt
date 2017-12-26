@@ -57,6 +57,9 @@ This Plugin is still in early development. Reality might be in movement.
 
 == Changelog ==
 
+0.0.4
+clean up dist/**/vendor folder
+
 0.0.3
 many fixes, check the commit massages for details: https://github.com/jhotadhari/export2word/commits/master
 

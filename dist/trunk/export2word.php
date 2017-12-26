@@ -3,7 +3,7 @@
 Plugin Name: Export2Word
 Plugin URI: http://example.com/export2word
 Description: Export a website as a docx document
-Version: 0.0.3
+Version: 0.0.4
 Author: jhotadhari
 Author URI: http://waterproof-webdesign.info
 License: GNU General Public License v2 or later
@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 class E2w_export2word {
 	
-	const VERSION = '0.0.3';
+	const VERSION = '0.0.4';
 	const DB_VERSION = 0;			// int	increase the number if the database needs an update
 	const PLUGIN_SLUG = 'export2word';
 	const PLUGIN_NAME = 'Export2Word';
