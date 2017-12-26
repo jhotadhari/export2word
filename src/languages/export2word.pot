@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: export2word 0.0.2\n"
+"Project-Id-Version: export2word 0.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-26 08:11+0530\n"
+"POT-Creation-Date: 2017-12-26 15:03+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_submit.php:41
+#: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_submit.php:40
 msgid "Save"
 msgstr ""
 
-#: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_submit.php:41
+#: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_submit.php:40
 msgid "Update"
 msgstr ""
 
-#: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_tree_properties.php:72
+#: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_tree_properties.php:71
 msgid "Selected Section"
 msgstr ""
 
@@ -51,34 +51,34 @@ msgid "All"
 msgstr ""
 
 #: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:37
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:152
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:123
 #: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:37
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:152
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:123
 msgid "Trash"
 msgstr ""
 
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:52
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:52
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:55
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:55
 msgid "Edit"
 msgstr ""
 
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:130
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:130
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:101
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:101
 msgid "Title"
 msgstr ""
 
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:131
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:131
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:102
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:102
 msgid "Debug"
 msgstr ""
 
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:155
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:155
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:126
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:126
 msgid "Delete Permanently"
 msgstr ""
 
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:156
-#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:156
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_documents.php:127
+#: src/inc/fun/autoload/menu_page/class-e2w_list_table_templates.php:127
 msgid "Restore"
 msgstr ""
 
@@ -110,19 +110,19 @@ msgstr ""
 msgid "Documents per page"
 msgstr ""
 
-#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:244
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:246
 msgid "Create a new Template"
 msgstr ""
 
-#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:280
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:282
 msgid "Create a new Document"
 msgstr ""
 
-#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:344
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:346
 msgid "settings coming soon ..."
 msgstr ""
 
-#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:495
+#: src/inc/fun/autoload/menu_page/class-e2w_options_page_export2word.php:497
 msgid "Settings updated."
 msgstr ""
 

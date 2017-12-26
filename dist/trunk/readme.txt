@@ -1,5 +1,5 @@
 === Export2Word ===
-Tags: export,word,docx
+Tags: export,word,docx,phpword
 Donate link: http://waterproof-webdesign.info/donate
 Contributors: jhotadhari
 Tested up to: 4.9.1
@@ -56,6 +56,9 @@ Go to 'Tools' -> 'Export2Word' and generate Templates and Documents
 This Plugin is still in early development. Reality might be in movement.
 
 == Changelog ==
+
+0.0.3
+many fixes, check the commit massages for details: https://github.com/jhotadhari/export2word/commits/master
 
 0.0.2
 

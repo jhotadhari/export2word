@@ -28,6 +28,7 @@ Class E2w_e2w_document_edit {
 		add_action( 'cmb2_admin_init', array( $this, 'editscreen_add_submit_metabox' ) );
 		add_action( 'cmb2_admin_init', array( $this, 'editscreen_add_document_metabox' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'editscreen_enqueue_style_script' ), 10, 1 );
+		add_action( 'edit_form_top', array( $this, 'top_form_edit' ) );
 	}
 	
 	public function editscreen_remove_submit_metabox() {
@@ -37,13 +38,15 @@ Class E2w_e2w_document_edit {
 	}	
 	
 	public function editscreen_add_submit_metabox() {
+		
 		// Start with an underscore to hide fields from custom fields list
 		$prefix = 'e2w_doc_';
 		
 		// Initiate the metabox
 		$submit = new_cmb2_box( array(
-			'id'			=> $prefix . 'submit',
-			'title'			=> __( 'Save and Export', 'export2word' ),
+			'id'			=> $prefix . 'submitpost',
+			'classes'		=> 'submitbox',
+			'title'			=> __( 'Save Template', 'export2word' ),
 			'object_types'	=> $this->object_types,
 			'context'		=> 'side',
 			'priority'		=> 'default',
@@ -51,7 +54,6 @@ Class E2w_e2w_document_edit {
 		) );
 		
 		$submit->add_field( array(
-			// 'name'    => __('save/export', 'export2word'),
 			'id'      => $prefix . 'save_export',
 			'type'    => 'radio_inline',
 			'options' => array(
@@ -59,18 +61,17 @@ Class E2w_e2w_document_edit {
 				'save_export'   => __( 'Save and Export to docx', 'export2word' ),
 			),
 			'default' => 'save',
-		) );	
+		) );
 		
 		$submit->add_field( array(
-			// 'name' => __('submit', 'export2word'),
 			'id'   => $prefix . 'submit_btn',
 			'type'    => 'submit',
-			'attributes' => array(
-				'button_type' => 'primary button-large',
-				'button_wrap' => false,
-				'button_text' => 'Save',
-			)
-		) );		
+			'options' => array(
+				'btn_type' => 'primary button-large',
+				'btn_text' => __( 'Save Document', 'export2word' ),
+			),
+		) );
+		
 	}
 	
 	public function editscreen_add_document_metabox() {
@@ -91,9 +92,9 @@ Class E2w_e2w_document_edit {
 			'id'   => $prefix . 'tree_properties',
 			'type' => 'tree_properties',
 			'desc' => __( 'Right click on a Section to edit.', 'export2word' ),
-			'attributes' => array(
+			'options' => array(
 				'fields' => $this->tree_properties_fields(),
-			)
+			)			
 			
 		) );
 		
@@ -124,7 +125,7 @@ Class E2w_e2w_document_edit {
 						__( 'Will recieve the queried object, if used as a child of a "Query Section".', 'export2word' )
 						,
 				),
-			
+				
 				'singular' => array(
 					'name' => __( 'Singular', 'export2word' ),
 					'desc' => 
@@ -276,6 +277,22 @@ Class E2w_e2w_document_edit {
 		}
 		
 	}
+	
+	public function top_form_edit( $post ) {
+		if ( 'e2w_document' != $post->post_type )
+			return;
+		
+		$args = array(
+			'tab'   => 'documents',
+		);	    
+		
+		echo sprintf( '<a class="%s" href="%s">%s</a>',
+			esc_attr( 'button button-secondary button-medium' ),
+			esc_url( add_query_arg( $args, menu_page_url( 'export2word', false ) ) ),
+			esc_attr__( 'Back to Documents List', 'export2word' ) 
+		);
+		
+	}	
 	
 }
 

@@ -28,6 +28,7 @@ Class E2w_e2w_template_edit {
 		add_action( 'cmb2_admin_init', array( $this, 'editscreen_add_submit_metabox' ) );
 		add_action( 'cmb2_admin_init', array( $this, 'editscreen_add_template_metabox' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'editscreen_enqueue_style_script' ), 10, 1 );
+		add_action( 'edit_form_top', array( $this, 'top_form_edit' ) );
 	}
 	
 	public function editscreen_remove_submit_metabox() {
@@ -41,8 +42,9 @@ Class E2w_e2w_template_edit {
 		$prefix = 'e2w_tmpl_';
 		
 		// Initiate the metabox
-		$cmb = new_cmb2_box( array(
-			'id'			=> $prefix . 'submit',
+		$submit = new_cmb2_box( array(
+			'id'			=> $prefix . 'submitpost',
+			'classes'		=> 'submitbox',
 			'title'			=> __( 'Save Template', 'export2word' ),
 			'object_types'	=> $this->object_types,
 			'context'		=> 'side',
@@ -50,16 +52,15 @@ Class E2w_e2w_template_edit {
 			'show_names'	=> true,
 		) );
 		
-		$cmb->add_field( array(
-			// 'name' => __('submit', 'export2word'),
-			'id'   => $prefix . 'submit',
+		$submit->add_field( array(
+			'id'   => $prefix . 'submit_btn',
 			'type'    => 'submit',
-			'attributes' => array(
-				'button_type' => 'primary button-large',
-				'button_wrap' => false,
-				'button_text' => 'Save Template',
-			)
-		) );		
+			'options' => array(
+				'btn_type' => 'primary button-large',
+				'btn_text' => __( 'Save Template', 'export2word' ),
+			),
+		) );
+		
 	}
 	
 	public function editscreen_add_template_metabox() {
@@ -128,6 +129,22 @@ Class E2w_e2w_template_edit {
 		}
 		
 	}
+	
+	public function top_form_edit( $post ) {
+		if ( 'e2w_template' != $post->post_type )
+			return;
+		
+		$args = array(
+			'tab'   => 'templates',
+		);
+		
+		echo sprintf( '<a class="%s" href="%s">%s</a>',
+			esc_attr( 'button button-secondary button-medium' ),
+			esc_url( add_query_arg( $args, menu_page_url( 'export2word', false ) ) ),
+			esc_attr__( 'Back to Templates List', 'export2word' ) 
+		);
+		
+	}		
 	
 }
 

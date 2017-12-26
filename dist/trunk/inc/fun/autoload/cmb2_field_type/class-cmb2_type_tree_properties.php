@@ -14,7 +14,6 @@ function cmb2_init_field_tree_properties() {
 		
 		public static function init() {
 			add_filter( 'cmb2_render_class_tree_properties', array( __CLASS__, 'class_name' ) );
-			// add_filter( 'cmb2_sanitize_tree_properties', array( __CLASS__, 'maybe_save_split_values' ), 12, 4 );
 			
 			/**
 			 * The following snippets are required for allowing the tree_properties field
@@ -34,12 +33,12 @@ function cmb2_init_field_tree_properties() {
 				'id'      => $this->_id(),
 				// 'value'   => $field->escaped_value( 'stripslashes' ),
 				'desc'    => $this->_desc( true ),
-				// 'options' => $field->options(),
 				'attributes' => $field->attributes(),
+				'options' => $field->options(),
 			) );			
 
 			// add node properties fields
-			$this->node_properties_fields = $a['attributes']['fields'];
+			$this->node_properties_fields = array_key_exists( 'fields', $a['options'] ) ? $a['options']['fields'] : array() ;
 			
 			// register scripts
 			$this->register_scripts();
@@ -74,11 +73,12 @@ function cmb2_init_field_tree_properties() {
 				echo '</div>'; 
 				
 				// hidden: selected node id
-				echo $this->types->input( array(
-					'type' => 'hidden',
-					'class' => 'selected-node-id',
-					'desc' => '',
-				) );		
+				echo sprintf(
+					'<input class="%s" name="%s" id="%s" value="" type="hidden">',
+					esc_attr( 'selected-node-id' ),
+					esc_attr( preg_replace('/[^A-Za-z0-9-]+/', '-', $this->field->id() ) ),
+					esc_attr( preg_replace('/[^A-Za-z0-9-]+/', '-', $this->field->id() ) )
+				);
 				
 				// form
 				echo '<div class="jsform jsform-wrapper">';
@@ -98,7 +98,16 @@ function cmb2_init_field_tree_properties() {
 			
 			foreach ( $fields as $field ) {
 				echo '<div class="form-fields-box">';
-					echo '<div class="conditional" data-eval="' . $field['depend'] . '___' . $field['depend_value'] . '">';
+				
+					echo sprintf( '<div class="conditional" %s>',
+						array_key_exists( 'depend', $field ) && array_key_exists( 'depend_value', $field )
+							? sprintf( 'data-eval="%s___%s"', 
+								$field['depend'], 
+								$field['depend_value']
+							) 
+							: ''
+					);
+					
 						echo '<div class="conditional-type-' . $field['key'] . '">';	
 							
 								// label
@@ -160,7 +169,6 @@ function cmb2_init_field_tree_properties() {
 		
 		}
 		
-		
 		protected function render_tree(){	
 			ob_start();
 			echo '<div class="jstree jstree-wrapper"></div>';
@@ -185,7 +193,7 @@ function cmb2_init_field_tree_properties() {
 						'class' => 'tree-properties-data',
 						) );
 				}
-			
+				
 			echo '</div>';
 			
 			return ob_get_clean();		
@@ -210,7 +218,7 @@ function cmb2_init_field_tree_properties() {
 		}
 		
 		public static function sanitize( $check, $meta_value, $object_id, $field_args, $sanitize_object ) {
-	
+			
 			// if not repeatable, bail out.
 			if ( ! is_array( $meta_value ) || ! $field_args['repeatable'] ) {
 				return $check;
@@ -221,9 +229,10 @@ function cmb2_init_field_tree_properties() {
 			}
 	
 			return array_filter($meta_value);
-		}		
+		}
 		
 		public static function escape( $check, $meta_value, $field_args, $field_object ) {
+			
 			// if not repeatable, bail out.
 			if ( ! is_array( $meta_value ) || ! $field_args['repeatable'] ) {
 				return $check;

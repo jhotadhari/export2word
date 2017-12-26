@@ -5,7 +5,7 @@
   "uri": "http://example.com/export2word",
   "textDomain": "export2word",
   "domainPath": "/languages",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Export a website as a docx document",
   "main": "index.js",
   "scripts": {
