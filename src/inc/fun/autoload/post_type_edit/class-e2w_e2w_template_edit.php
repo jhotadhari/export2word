@@ -55,7 +55,7 @@ Class E2w_e2w_template_edit {
 		$submit->add_field( array(
 			'id'   => $prefix . 'submit_btn',
 			'type'    => 'submit',
-			'attributes' => array(
+			'options' => array(
 				'btn_type' => 'primary button-large',
 				'btn_text' => __( 'Save Template', 'export2word' ),
 			),

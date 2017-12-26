@@ -40,70 +40,41 @@ class E2w_List_Table_Documents extends WP_List_Table {
 	}
 	
 	function column_title( $item ) {
-		$page = wp_unslash( $_REQUEST['page'] ); // WPCS: Input var ok.
-		$nonce = wp_create_nonce( 'e2w_nonce_document' );
-		$view = ( !empty($_REQUEST['viewvar']) && gettype( $_REQUEST['viewvar'] ) === 'string' ? esc_attr( $_REQUEST['viewvar'] ) : 'all');
+		$view = ! empty( $_REQUEST['viewvar'] ) && gettype( $_REQUEST['viewvar'] ) === 'string' ? esc_attr( $_REQUEST['viewvar'] ) : 'all' ;
+		$query_args_defaults = array(
+			'page'   => wp_unslash( $_REQUEST['page'] ),
+			'tab'   => 'documents',
+			'viewvar' => $view,
+			'e2w_document'  => absint( $item['ID'] ),
+		);	
 		
 		$actions = array();
 		
 		switch( $view ) {
 			case 'all':
-				
 				$actions['edit'] = sprintf( '<a href="%s">%s</a>', esc_url( get_edit_post_link( $item['ID'] ) ), esc_attr__( 'Edit', 'export2word' ) );
-					
-				$trash_query_args = array(
-					'page'   => $page,
-					'tab'   => 'documents',
-					'action' => 'trash',
-					'viewvar' => $view,
-					'_wpnonce' => $nonce,
-					'e2w_document'  => absint( $item['ID'] ),
-				);					
-				
-				$actions['trash'] = 
-					sprintf(
-						'<a href="%1$s">%2$s</a>',
-						esc_url( add_query_arg( $trash_query_args, 'admin.php' ) ),
-						_x( 'Trash', 'List table row action', 'export2word' )
-					);				
-				breaK;
-				
-			case 'trash':
-				
-				$restore_query_args = array(
-					'page'   => $page,
-					'tab'   => 'documents',
-					'action' => 'restore',
-					'viewvar' => $view,
-					'_wpnonce' => $nonce,
-					'e2w_document'  => absint( $item['ID'] ),
+				$acs = array(
+					'trash' => _x( 'Trash', 'List table row action', 'export2word' )
 				);
-				
-				$actions['restore'] =
-					sprintf(
-						'<a href="%1$s">%2$s</a>',
-						esc_url( add_query_arg( $restore_query_args, 'admin.php' ) ),
-						_x( 'Restore', 'List table row action', 'export2word' )
-					);
-									
-				$delete_query_args = array(
-					'page'   => $page,
-					'tab'   => 'documents',
-					'action' => 'delete',
-					'viewvar' => $view,
-					'_wpnonce' => $nonce,
-					'e2w_document'  => absint( $item['ID'] ),
-				);				
-				
-				$actions['delete'] =
-					sprintf(
-						'<a href="%1$s">%2$s</a>',
-						esc_url( add_query_arg( $delete_query_args, 'admin.php' ) ),
-						_x( 'Delete Permanently', 'List table row action', 'export2word' )
-					);
-					
+				breaK;
+			case 'trash':
+				$acs = array(
+					'restore' => _x( 'Restore', 'List table row action', 'export2word' ),
+					'delete' => _x( 'Delete Permanently', 'List table row action', 'export2word' ),
+				);
 				break;
 		}
+
+		foreach ( $acs as $key => $val ) {
+			$actions[$key] = sprintf(
+				'<a href="%1$s">%2$s</a>',
+				esc_url( add_query_arg( wp_parse_args( array(
+					'action' => $key,
+					'_wpnonce' => wp_create_nonce( 'e2w_nonce_document' . $key . $item['ID'] ),
+					), $query_args_defaults ), 'admin.php' ) ),
+				$val
+			);				
+		}			
 		
 		return $item['title'] . $this->row_actions( $actions );
 	}
@@ -181,7 +152,7 @@ class E2w_List_Table_Documents extends WP_List_Table {
 			$args['offset'] = ( $current_page - 1 ) * $per_page;
 		}
 		
-		if ( !empty( $_REQUEST['viewvar'] && gettype( $_REQUEST['viewvar'] ) === 'string' ) ){
+		if ( !empty( $_REQUEST['viewvar'] ) && gettype( $_REQUEST['viewvar'] ) === 'string' ){
 			switch ( esc_attr( $_REQUEST['viewvar'] ) ){
 				case 'trash':
 					$args['post_status'] = 'trash';
@@ -250,16 +221,15 @@ class E2w_List_Table_Documents extends WP_List_Table {
 	
 	protected function process_bulk_action_single( $action ) {
 		
+		$post_id = is_numeric( $_GET['e2w_document'] ) ? absint( $_GET['e2w_document'] ) : null;
+		if ( $post_id === null )
+			return;		
+		
 		$nonce = esc_attr( $_REQUEST['_wpnonce'] );
 		
-		if ( ! wp_verify_nonce( $nonce, 'e2w_nonce_document' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'e2w_nonce_document' . $action . $post_id ) ) {
 			wp_die( 'Nope! Security check failed!' );
 		} else {
-			
-			$post_id = is_numeric( $_GET['e2w_document'] ) ? absint( $_GET['e2w_document'] ) : null;
-			if ( $post_id === null )
-				return;
-			
 			switch( $action ){
 				case 'trash':
 						wp_trash_post( $post_id );
@@ -314,8 +284,8 @@ class E2w_List_Table_Documents extends WP_List_Table {
 							}
 							break;
 						case 'bulk-restore':
-							foreach ( $template_ids as $template_id ) {
-								wp_untrash_post( $template_id );
+							foreach ( $document_ids as $document_id ) {
+								wp_untrash_post( $document_id );
 							}
 							break;							
 						default:

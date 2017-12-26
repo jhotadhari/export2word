@@ -25,12 +25,11 @@ function cmb2_init_field_subimt() {
 		public function render( $args = array() ) {
 			
 			$field = $this->field;
-			// $field_attributes = $field->attributes();
 			
 			$action = isset( $_GET['action'] ) && gettype( $_GET['action'] ) === 'string' && $_GET['action'] === 'edit' ? 'edit' : 'new';
 			
 			// parse params
-			$params = wp_parse_args( $field->attributes(), array(
+			$params = wp_parse_args( $field->options(), array(
 				// wrapper parameters
 				'wrapper_id' => 'publishing-action',
 				// hidden input parameters
@@ -42,11 +41,16 @@ function cmb2_init_field_subimt() {
 				'btn_wrap' => false,
 				'btn_name' => $action === 'edit' ? esc_attr( 'save' ) : esc_attr( 'publish' ),
 			) );
+			
 			// submit button other attributes
-			$params['btn_other_attributes'] = wp_parse_args( $field->attributes()['btn_other_attributes'], array(
-				'id' => esc_attr( 'publish' ),
-				'accesskey' => esc_attr( 'p' ),
-			) );
+			$field_options = $field->options();
+			$params['btn_other_attributes'] = wp_parse_args(
+				array_key_exists( 'btn_other_attributes', $field_options ) ? $field_options : array(),
+				array(
+					'id' => esc_attr( 'publish' ),
+					'accesskey' => esc_attr( 'p' ),
+				)
+			);
 			
 			ob_start();
 			

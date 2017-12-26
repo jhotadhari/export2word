@@ -41,7 +41,7 @@ class E2w_export2word {
 	public function __construct() {
 		register_activation_hook( __FILE__, array( $this, 'on_activate' ) );
 		register_deactivation_hook( __FILE__, array( $this, 'on_deactivate' ) );
-		register_uninstall_hook( __FILE__, array( $this, 'on_uninstall' ) );
+		register_uninstall_hook( __FILE__, array( __CLASS__, 'on_uninstall' ) );
 		add_action( 'plugins_loaded', array( $this, 'start_plugin' ), 9 );
 	}
 	
@@ -68,6 +68,7 @@ class E2w_export2word {
 	}
 	
 	public function on_activate() {
+		
 		if ( $this->check_dependencies() ){
 			$this->init_options();
 			$this->register_post_types_and_taxs();
@@ -92,7 +93,7 @@ class E2w_export2word {
 		do_action('e2w_plugin_deactivated');
 	}
 	
-	public function on_uninstall() {
+	public static function on_uninstall() {
 		do_action('e2w_plugin_uninstalled');	
 	}
 	
@@ -210,7 +211,7 @@ class E2w_export2word {
 		return $files;
 	}	
 	
-	protected static function include_dir( $directory ){
+	public static function include_dir( $directory ){
 		$files =  self::rglob( $directory . '*.php');
 		if ( count($files) > 0 ){
 			foreach ( $files as $file) {

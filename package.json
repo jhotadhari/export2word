@@ -16,7 +16,7 @@
   "authorUri": "http://waterproof-webdesign.info",
   "license": "GNU General Public License v2 or later",
   "licenseUri": "http://www.gnu.org/licenses/gpl-2.0.html",
-  "tags": "export,word,docx",
+  "tags": "export,word,docx,phpword",
   "donateLink": "http://waterproof-webdesign.info/donate",
   "wpVersionTested": "4.9.1",
   "wpRequiresAtLeast": "4.7",

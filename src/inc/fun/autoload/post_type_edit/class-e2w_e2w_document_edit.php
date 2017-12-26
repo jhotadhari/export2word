@@ -38,6 +38,7 @@ Class E2w_e2w_document_edit {
 	}	
 	
 	public function editscreen_add_submit_metabox() {
+		
 		// Start with an underscore to hide fields from custom fields list
 		$prefix = 'e2w_doc_';
 		
@@ -65,7 +66,7 @@ Class E2w_e2w_document_edit {
 		$submit->add_field( array(
 			'id'   => $prefix . 'submit_btn',
 			'type'    => 'submit',
-			'attributes' => array(
+			'options' => array(
 				'btn_type' => 'primary button-large',
 				'btn_text' => __( 'Save Document', 'export2word' ),
 			),
@@ -91,9 +92,9 @@ Class E2w_e2w_document_edit {
 			'id'   => $prefix . 'tree_properties',
 			'type' => 'tree_properties',
 			'desc' => __( 'Right click on a Section to edit.', 'export2word' ),
-			'attributes' => array(
+			'options' => array(
 				'fields' => $this->tree_properties_fields(),
-			)
+			)			
 			
 		) );
 		
@@ -124,7 +125,7 @@ Class E2w_e2w_document_edit {
 						__( 'Will recieve the queried object, if used as a child of a "Query Section".', 'export2word' )
 						,
 				),
-			
+				
 				'singular' => array(
 					'name' => __( 'Singular', 'export2word' ),
 					'desc' => 

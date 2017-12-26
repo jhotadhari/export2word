@@ -189,6 +189,8 @@ class E2w_options_page_export2word {
 					'option'  => 'documents_per_page'
 				);
 				break;
+			default:
+				$args = array();
 		}
 	
 		add_screen_option( $option, $args );
