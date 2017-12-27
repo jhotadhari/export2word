@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the export2word package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: export2word 0.0.5\n"
+"Project-Id-Version: export2word 0.0.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-27 12:56+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2017-12-27 11:11+0530\n"
+"PO-Revision-Date: 2017-12-27 11:47+0530\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de\n"
 
 #: src/inc/fun/autoload/cmb2_field_type/class-cmb2_type_submit.php:40
 msgid "Save"
@@ -311,17 +312,17 @@ msgstr ""
 
 #: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:105
 msgid "{{Content}} in double-curly braces will be replaced."
-msgstr ""
+msgstr "{{Inhalte}} in doppelt geschweiften Klammern werden ersetzt."
 
 #: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:107
 #, php-format
 msgid "They can be replaced by %s and %s."
-msgstr ""
+msgstr "Sie können durch %s und %s ersetzt werden."
 
 #: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:111
 #, php-format
 msgid "For example: the following is used for the title: %s."
-msgstr ""
+msgstr "Bspw. wird folgendes für den Titel verwendet: %s."
 
 #: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:115
 #, php-format
@@ -329,6 +330,8 @@ msgid ""
 "Conditions can also be used. For this, the text must begin with %s. Valid "
 "operands are %s and %s."
 msgstr ""
+"Es können auch Conditions verwendet werden. Dafür muss der Text mit %s "
+"beginnen. Gültige Operanten sind %s und %s."
 
 #: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:120
 #, php-format
@@ -336,15 +339,17 @@ msgid ""
 "The condition is separated from the action to be executed with a %s. The "
 "action can be structured as above."
 msgstr ""
+"Die Condition ist von der auszuführenden Action mit einem %s getrennt. Die "
+"Action kann wieder wie oben aufgebaut sein."
 
 #: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:123
 #, php-format
 msgid "For example: %s."
-msgstr ""
+msgstr "Bsp: %s."
 
 #: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:126
 msgid "if the condition is not met, nothing is displayed."
-msgstr ""
+msgstr "Ist die Condition nicht erfüllt, wird nichts angezeigt."
 
 #: src/inc/fun/autoload/post_type_edit/class-e2w_e2w_template_edit.php:155
 msgid "Back to Templates List"

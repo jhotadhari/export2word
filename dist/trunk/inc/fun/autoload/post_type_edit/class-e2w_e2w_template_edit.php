@@ -102,17 +102,28 @@ Class E2w_e2w_template_edit {
 			'id'   => 'mail_content_info_lead_import',
 			'type' => 'info',	// requires remp
 			'info' => 
-				'{{Inhalte}} in doppelt geschweiften Klammern werden ersetzt.' . '<br>' . 
+				__( '{{Content}} in double-curly braces will be replaced.', 'export2word' ) . '<br>' . 
 				'<br>' .
-				'Sie können durch <i>objectdata</i> und <i>objectmeta</i> ersetzt werden.' . '<br>' .
-				
-				'Bspw. wird folgendes für den Title verwendet: <i>{{#objectdata#title}}</i>.' . '<br>' .
-				'<br>' .
-				'Es können auch Conditions verwendet werden. Dafür muss der Text mit <i>if</i> beginnen. Gültige Operanten sind <i>==</i> und <i>!=</i>.' . '<br>' .
-				'Die Condition ist von der auszuführenden Action mit einem <i>::</i> getrennt. Die Action kann wieder wie oben aufgebaut sein.'
-				. '<br>' .
-				'Bsp: <i>{{if#meta#somemetakey==sometruevalue::#data#post_content}}</i>.' . '<br>' .
-				'ist die Condition nicht erfüllt, wird nichts angezeigt.',
+				sprintf( __( 'They can be replaced by %s and %s.','export2word'),
+					'<i>objectdata</i>',
+					'<i>objectmeta</i>'
+				) . '<br>' .
+				sprintf( __( 'For example: the following is used for the title: %s.','export2word') ,
+					'<i>{{#objectdata#title}}</i>'
+				) . '<br>' .
+				'<br>' . 
+				sprintf( __( 'Conditions can also be used. For this, the text must begin with %s. Valid operands are %s and %s.','export2word'),
+					'<i>if</i>',
+					'<i>==</i>',
+					'<i>!=</i>'
+				) . '<br>' .
+				sprintf( __( 'The condition is separated from the action to be executed with a %s. The action can be structured as above.','export2word'),
+					'<i>::</i>'
+				) . '<br>' .
+				sprintf( __( 'For example: %s.','export2word'),
+					'<i>{{if#meta#somemetakey==sometruevalue::#data#post_content}}</i>'
+				) . '<br>' .
+				__('if the condition is not met, nothing is displayed.','export2word'),
 		) );
 		
 	}	

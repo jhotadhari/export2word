@@ -52,6 +52,11 @@ class E2w_export2word {
 	public static function plugin_dir_path(){
 		return plugin_dir_path( __FILE__ );		// trailing slash
 	}
+	
+	public static function plugin_dir_basename(){
+		return basename( dirname( __FILE__ ) );	// no trailing slash
+	}
+	
     
 	public function start_plugin() {
 		if ( $this->check_dependencies() ){
@@ -191,7 +196,7 @@ class E2w_export2word {
 		load_plugin_textdomain(
 			'export2word',
 			false,
-			dirname( self::plugin_dir_path() . 'languages' )
+			self::plugin_dir_basename() . '/languages' 
 		);
 	}
 	

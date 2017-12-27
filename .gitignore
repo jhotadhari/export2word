@@ -27,6 +27,8 @@
 /dist/*
 !dist/trunk
 !dist/trunk/**/*
+!dist/assets
+!dist/assets/**/*
 
 # ignore certain file patterns
 _test*

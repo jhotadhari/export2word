@@ -193,7 +193,15 @@ Class E2w_e2w_document_edit {
 			// 'depend_value' => 'json',
 			'depend' => 'section_type',
 			'depend_value' => 'query',			
-			'desc' => __( 'The Query arguments as json formatted array.', 'export2word' ),
+			'desc' => __( 
+				__( 'The Query arguments as json formatted array.', 'export2word' ) . '<br>' . 
+				sprintf(
+					__( 'You can use %s to get the current queried object. E.g if a post loop inside a term loop, use %s to get posts for the current term.', 'export2word' ) , 
+					'<i>this__</i>',
+					'<i>"cat": "this__term_id"</i>'
+				)
+				
+				, 'export2word' ),
 		);
 		
 		$fields[] = array(

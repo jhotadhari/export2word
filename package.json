@@ -2,10 +2,10 @@
   "name": "export2word",
   "fullName": "Export2Word",
   "funcPrefix": "e2w",
-  "uri": "http://example.com/export2word",
+  "uri": "https://github.com/jhotadhari/export2word",
   "textDomain": "export2word",
   "domainPath": "/languages",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Export a website as a docx document",
   "main": "index.js",
   "scripts": {

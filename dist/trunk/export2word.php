@@ -1,9 +1,9 @@
 <?php 
 /*
 Plugin Name: Export2Word
-Plugin URI: http://example.com/export2word
+Plugin URI: https://github.com/jhotadhari/export2word
 Description: Export a website as a docx document
-Version: 0.0.4
+Version: 0.0.5
 Author: jhotadhari
 Author URI: http://waterproof-webdesign.info
 License: GNU General Public License v2 or later
@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 class E2w_export2word {
 	
-	const VERSION = '0.0.4';
+	const VERSION = '0.0.5';
 	const DB_VERSION = 0;			// int	increase the number if the database needs an update
 	const PLUGIN_SLUG = 'export2word';
 	const PLUGIN_NAME = 'Export2Word';
@@ -67,6 +67,11 @@ class E2w_export2word {
 	public static function plugin_dir_path(){
 		return plugin_dir_path( __FILE__ );		// trailing slash
 	}
+	
+	public static function plugin_dir_basename(){
+		return basename( dirname( __FILE__ ) );	// no trailing slash
+	}
+	
     
 	public function start_plugin() {
 		if ( $this->check_dependencies() ){
@@ -206,7 +211,7 @@ class E2w_export2word {
 		load_plugin_textdomain(
 			'export2word',
 			false,
-			dirname( self::plugin_dir_path() . 'languages' )
+			self::plugin_dir_basename() . '/languages' 
 		);
 	}
 	

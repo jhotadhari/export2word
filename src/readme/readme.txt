@@ -25,6 +25,7 @@ This plugin is currently in development and more features and documentation will
 * [jstree](https://github.com/vakata/jstree/)
 * [jsForm](https://github.com/corinis/jsForm)
 * This Plugin is generated with [generator-pluginboilerplate](https://github.com/jhotadhari/generator-pluginboilerplate)
+* Banner and Icon are based [Money vector created by Dooder - Freepik.com](https://www.freepik.com/free-photos-vectors/money)
 
 == Installation ==
 
@@ -37,6 +38,9 @@ Upload and install this Plugin the same way you'd install any other plugin.
 Go to 'Tools' -> 'Export2Word' and generate Templates and Documents 
 
 == Screenshots ==
+1. Documents List
+2. Edit Template
+3. Edit Document
 
 == Upgrade Notice ==
 
