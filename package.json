@@ -5,7 +5,7 @@
   "uri": "https://github.com/jhotadhari/export2word",
   "textDomain": "export2word",
   "domainPath": "/languages",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Export a website as a docx document",
   "main": "index.js",
   "scripts": {

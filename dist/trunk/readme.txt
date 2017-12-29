@@ -4,6 +4,7 @@ Donate link: http://waterproof-webdesign.info/donate
 Contributors: jhotadhari
 Tested up to: 4.9.1
 Requires at least: 4.7
+Requires PHP: 5.6
 Stable tag: trunk
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -38,7 +39,7 @@ This plugin is currently in development and more features and documentation will
 * [jstree](https://github.com/vakata/jstree/)
 * [jsForm](https://github.com/corinis/jsForm)
 * This Plugin is generated with [generator-pluginboilerplate](https://github.com/jhotadhari/generator-pluginboilerplate)
-* Banner and Icon are based [Money vector created by Dooder - Freepik.com](https://www.freepik.com/free-photos-vectors/money)
+* Banner and Icon are based on [Money vector created by Dooder - Freepik.com](https://www.freepik.com/free-photos-vectors/money)
 
 == Installation ==
 
@@ -60,6 +61,9 @@ Go to 'Tools' -> 'Export2Word' and generate Templates and Documents
 This Plugin is still in early development. Reality might be in movement.
 
 == Changelog ==
+
+0.0.6
+added 'Requires PHP' to readme.txt
 
 0.0.5
 added assets;
