@@ -2,7 +2,7 @@ module.exports = {
 	
 	readme: {
 		options: {	
-			banner: '=== <%= global["pkg"].fullName %> ===\nTags: <%= global["pkg"].tags %>\nDonate link: <%= global["pkg"].donateLink %>\nContributors: <%= global["pkg"].contributors %>\nTested up to: <%= global["pkg"].wpVersionTested %>\nRequires at least: <%= global["pkg"].wpRequiresAtLeast%>\nStable tag: trunk\nLicense: <%= global["pkg"].license %>\nLicense URI: <%= global["pkg"].licenseUri %>\n\n<%= global["pkg"].description %>\n\n\n',
+			banner: '=== <%= global["pkg"].fullName %> ===\nTags: <%= global["pkg"].tags %>\nDonate link: <%= global["pkg"].donateLink %>\nContributors: <%= global["pkg"].contributors %>\nTested up to: <%= global["pkg"].wpVersionTested %>\nRequires at least: <%= global["pkg"].wpRequiresAtLeast%>\nRequires PHP: <%= global["pkg"].phpRequiresAtLeast%>\nStable tag: trunk\nLicense: <%= global["pkg"].license %>\nLicense URI: <%= global["pkg"].licenseUri %>\n\n<%= global["pkg"].description %>\n\n\n',
 			footer: '\n\n== Changelog ==\n\n<%= changelog %>'
 		},
 		src: [

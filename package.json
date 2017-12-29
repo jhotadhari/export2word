@@ -20,6 +20,7 @@
   "donateLink": "http://waterproof-webdesign.info/donate",
   "wpVersionTested": "4.9.1",
   "wpRequiresAtLeast": "4.7",
+  "phpRequiresAtLeast": "5.6",
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-bump": "^0.8.0",

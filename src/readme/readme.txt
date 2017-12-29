@@ -25,7 +25,7 @@ This plugin is currently in development and more features and documentation will
 * [jstree](https://github.com/vakata/jstree/)
 * [jsForm](https://github.com/corinis/jsForm)
 * This Plugin is generated with [generator-pluginboilerplate](https://github.com/jhotadhari/generator-pluginboilerplate)
-* Banner and Icon are based [Money vector created by Dooder - Freepik.com](https://www.freepik.com/free-photos-vectors/money)
+* Banner and Icon are based on [Money vector created by Dooder - Freepik.com](https://www.freepik.com/free-photos-vectors/money)
 
 == Installation ==
 
