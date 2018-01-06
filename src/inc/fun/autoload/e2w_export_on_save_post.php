@@ -24,7 +24,7 @@ function e2w_export_on_save_post( $post_id = null ) {
 		return;	
 	
 	// include and init Exporter
-	E2w_export2word::include_dir(  E2w_export2word::plugin_dir_path() . 'inc/exporter/' );
+	E2w_Export2word::include_dir(  E2w_Export2word::plugin_dir_path() . 'inc/exporter/' );
 	new E2w_Exporter( $post_id );
 
 }

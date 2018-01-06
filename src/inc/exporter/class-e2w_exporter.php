@@ -57,7 +57,7 @@ Class E2w_Exporter {
 		
 		// Verify nonce
 		$submitbox_key = 'e2w_doc_submitpost';
-		$path_to_CMB2_class = E2w_export2word::plugin_dir_path() . 'vendor/webdevstudios/cmb2/includes/CMB2.php';
+		$path_to_CMB2_class = E2w_Export2word::plugin_dir_path() . 'vendor/webdevstudios/cmb2/includes/CMB2.php';
 		$nonce = sanitize_html_class( 'nonce_' . basename( $path_to_CMB2_class ) . $submitbox_key );			
 	
 		if ( ! isset( $_POST[$nonce] ) || empty( $_POST[$nonce] ) || ! wp_verify_nonce( $_POST[$nonce], $nonce ) )
@@ -100,7 +100,7 @@ Class E2w_Exporter {
 	
 	private function load_dependencies(){
 		// Include the PhpWord through composer autoload
-		$autoload = E2w_export2word::plugin_dir_path() . 'vendor/autoload.php';
+		$autoload = E2w_Export2word::plugin_dir_path() . 'vendor/autoload.php';
 		if( ! file_exists( $autoload ) ) {
 			return false; 
 		} else {

@@ -1,15 +1,13 @@
 <?php
 
-// some ideas: https://solislab.com/blog/plugin-activation-checklist/
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-class E2w_export2word {
+class E2w_Export2word {
 	
-	const VERSION = 'taskRunner_setVersion';
+	const VERSION = 'taskRunner_set_version';
 	const DB_VERSION = 0;			// int	increase the number if the database needs an update
 	const PLUGIN_SLUG = 'export2word';
 	const PLUGIN_NAME = 'Export2Word';
@@ -27,8 +25,8 @@ class E2w_export2word {
 			),
 			*/
 		),
-		'php_version' => '5.6',						// required php version
-		'wp_version' => '4.8',						// required wp version
+		'php_version' => 'taskRunner_set_phpRequiresAtLeast',		// required php version
+		'wp_version' => 'taskRunner_set_wpRequiresAtLeast',			// required wp version
 		'php_ext' => array(
 			'xml' => array(
 				'name'				=> 'Xml',											// full name
@@ -228,7 +226,7 @@ class E2w_export2word {
 }
 
 global $e2w_export2word;
-$e2w_export2word = new E2w_export2word();
+$e2w_export2word = new E2w_Export2word();
 
 
 

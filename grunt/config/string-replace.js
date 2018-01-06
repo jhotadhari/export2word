@@ -1,9 +1,22 @@
+'use strict';
+
+function getReplacements() {
+
+	var replacements = [];
+	Object.keys( global["pkg"] ).forEach( function( key ) {
+		replacements.push( {
+			pattern: new RegExp( 'taskRunner_set_' + key, 'g'),
+			replacement: global["pkg"][key]
+		} );
+	});
+	
+	return replacements;
+	
+}
+
 module.exports = {
 	options: {
-		replacements: [{
-			pattern: /taskRunner_setVersion/g,
-			replacement:  '<%= global["pkg"].version %>'
-		}]
+		replacements: getReplacements()
 	},
 	
 	// will replace string and copy plugin_main_file to destination
@@ -13,6 +26,12 @@ module.exports = {
 	
 	// will replace string and update file in source. should only run on dist
 	inc_update_src: {
+		options: {
+			replacements: [{
+				pattern: /taskRunner_set_version/g,
+				replacement:  '<%= global["pkg"].version %>'
+			}]			
+		},
 		files: [{
 			expand: true,
 			cwd: 'src/inc/',

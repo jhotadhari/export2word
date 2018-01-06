@@ -1,0 +1,24 @@
+{
+  "next": [
+    ""
+  ],
+  "0.0.6": [
+    "added 'Requires PHP' to readme.txt"
+  ],
+  "0.0.5": [
+    "added assets;",
+    "translated some strings to german;"
+  ],
+  "0.0.4": [
+    "clean up dist/**/vendor folder"
+  ],
+  "0.0.3": [
+    "many fixes, check the commit massages for details: https://github.com/jhotadhari/export2word/commits/master"
+  ],
+  "0.0.2": [
+    ""
+  ],
+  "0.0.1": [
+    "First basic running version"
+  ]
+}

@@ -12,6 +12,7 @@
 !.bowerrc
 !composer.json
 !composer.lock
+!changelog.json
 !readme.md
 
 # include dir grunt

@@ -133,8 +133,8 @@ class E2w_options_page_export2word {
 	 * @since 0.0.1
 	 */	
 	public function enqueue_style_script( $post_id, $cmb ) {
-		wp_enqueue_style( 'e2w_options_page_export2word', E2w_export2word::plugin_dir_url() .'/css/e2w_options_page_export2word.min.css', false );
-		wp_enqueue_script('e2w_options_page_export2word', E2w_export2word::plugin_dir_url() .'/js/e2w_options_page_export2word.min.js', array( 'jquery' ));
+		wp_enqueue_style( 'e2w_options_page_export2word', E2w_Export2word::plugin_dir_url() .'/css/e2w_options_page_export2word.min.css', false );
+		wp_enqueue_script('e2w_options_page_export2word', E2w_Export2word::plugin_dir_url() .'/js/e2w_options_page_export2word.min.js', array( 'jquery' ));
 	}	
 
 	/**
