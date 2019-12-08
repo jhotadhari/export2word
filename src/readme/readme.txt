@@ -1,5 +1,8 @@
 == Description ==
 
+> ## Deprecated
+> This project is no longer active and not recommended for use.
+
 Export a website as a docx document.
 
 UI to manage and customize Templates and Documents.
@@ -35,7 +38,7 @@ This plugin is currently in development and more features and documentation will
 * JavaScript needs to be enabled
 
 Upload and install this Plugin the same way you'd install any other plugin.
-Go to 'Tools' -> 'Export2Word' and generate Templates and Documents 
+Go to 'Tools' -> 'Export2Word' and generate Templates and Documents
 
 == Screenshots ==
 1. Documents List
